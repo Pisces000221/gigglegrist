@@ -1,10 +1,23 @@
-/* CSS declarations go here */
+/* 使用的字体(WOFF) */
+@font-face {
+  font-family: Quicksand;
+  src: url('/webfonts/Quicksand_Light.woff');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Quicksand;
+  src: url('/webfonts/Quicksand_Bold.woff');
+  font-weight: 700;
+}
 
 .banner-container {
+  font-family: Quicksand;
   width: 100%;
   background: none no-repeat scroll center center / cover;
-  font-size: 54px;
-  line-height: 54px;
+  font-size: 48px;
+  line-height: 48px;
+  font-weight: 700;
 }
 
 .title-big-mainpage {
