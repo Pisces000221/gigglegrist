@@ -1,1 +1,13 @@
 /* CSS declarations go here */
+
+.banner-container {
+  width: 100%;
+  background: none no-repeat scroll center center / cover;
+  font-size: 54px;
+  line-height: 54px;
+}
+
+.title-big-mainpage {
+  font-size: 64px;
+  color: #fff;
+}
