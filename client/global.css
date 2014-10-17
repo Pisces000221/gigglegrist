@@ -15,13 +15,13 @@ body {
   margin: 0px;
 }
 
+.bg-container {
+  background: none no-repeat scroll center center / cover #fff;
+}
+
 .banner-container {
   width: 100%;
-  background: none no-repeat scroll center center / cover;
-  /* 显示SVG背景图像，实在不行就拿个PNG上去顶着～ */
-  /* http://www.broken-links.com/2010/06/14/using-svg-in-backgrounds-with-png-fallback/ */
-  background-image: url('/images/banner-welcome.svg');
-  background-image: none, url('/images/banner-welcome.svg'), url('/images/banner-welcome.png');
+  background-image: url('/images/banner-welcome.png');
 }
 
 .title-big-mainpage {
