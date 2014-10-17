@@ -11,16 +11,27 @@
   font-weight: 700;
 }
 
+body {
+  margin: 0px;
+}
+
 .banner-container {
-  font-family: Quicksand;
   width: 100%;
   background: none no-repeat scroll center center / cover;
-  font-size: 48px;
-  line-height: 48px;
-  font-weight: 700;
+  /* 显示SVG背景图像，实在不行就拿个PNG上去顶着～ */
+  /* http://www.broken-links.com/2010/06/14/using-svg-in-backgrounds-with-png-fallback/ */
+  background-image: url('/images/banner-welcome.svg');
+  background-image: none, url('/images/banner-welcome.svg'), url('/images/banner-welcome.png');
 }
 
 .title-big-mainpage {
   font-size: 64px;
   color: #fff;
+}
+
+.subtitle-mainpage {
+  font-family: Quicksand;
+  font-size: 48px;
+  line-height: 48px;
+  font-weight: 700;
 }
