@@ -10,4 +10,5 @@ mrt:bootstrap-3
 accounts-base
 accounts-password
 email
+force-ssl
 
