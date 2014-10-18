@@ -7,6 +7,8 @@ Template.enrollment.helpers
 
 Template.enrollment.events
   'click #btn_submit': ->
+    # https://developer.mozilla.org/en-US/docs/Web/API/FileReader.readAsDataURL
+    # http://blog.teamtreehouse.com/reading-files-using-the-html5-filereader-api
     file = document.getElementById('file_avatar').files[0]
     reader = new FileReader()
     current_id = this.trim()

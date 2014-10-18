@@ -2,11 +2,8 @@
 
 Router.map ->
   # 一般页面（没有id作为参数）
-  @route 'welcome',
+  @route 'home_page',
     path: '/'
-    layoutTemplate: 'layout'
-    yieldTemplates: 'header': to: 'top'
-  @route 'room_list',
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
   @route 'enrollment',

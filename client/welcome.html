@@ -3,6 +3,14 @@
   <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
 </head>
 
+<template name='home_page'>
+  {{#if currentUser}}
+  {{> room_list}}
+  {{else}}
+  {{> welcome}}
+  {{/if}}
+</template>
+
 <template name='welcome'>
   <div class='bg-container banner-container animate'>
     <div style='padding-top: 60px;'></div>
