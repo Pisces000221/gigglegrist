@@ -16,7 +16,13 @@
         <a class='navbar-brand' href='#'>Project Mangostana</a>
       </div>
       <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-5'>
-        <p class='navbar-text navbar-right'>Signed in as <a href='#' class='navbar-link'>Somebody</a></p>
+        <p class='navbar-text navbar-right'>
+          {{#if currentUser}}
+          {{current_username}} / <a href='#' id='a_logout' class='navbar-link'>退出帐号</a>
+          {{else}}
+          还没有登录喔
+          {{/if}}
+        </p>
       </div>
     </div>
   </nav>
