@@ -36,17 +36,17 @@ body {
 }
 
 .title-big-mainpage {
-  font-size: 64px;
+  font-size: 54px;
   color: #fff;
 }
 
 .title-small-mainpage {
-  font-size: 54px;
+  font-size: 36px;
 }
 
 .subtitle-mainpage {
   font-family: Quicksand;
-  font-size: 48px;
+  font-size: 44px;
   line-height: 48px;
   font-weight: 700;
 }

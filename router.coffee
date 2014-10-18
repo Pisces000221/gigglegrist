@@ -9,3 +9,8 @@ Router.map ->
   @route 'room_list',
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
+  @route 'enrollment',
+    path: '/enroll/:user_id'
+    data: -> @params.user_id
+    layoutTemplate: 'layout'
+    yieldTemplates: 'header': to: 'top'

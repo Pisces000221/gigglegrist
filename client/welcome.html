@@ -19,11 +19,14 @@
         <div class='form-group' style='width: 100%'>
           <div class='input-group'>
             <div class='input-group-addon'>@</div>
-            <input class='form-control input-lg' type='email' placeholder='留下你的电子邮箱'>
+            <input id='txt_email' class='form-control' type='email' placeholder='留下你的电子邮箱'>
           </div>
         </div>
       </form>
       <button id='btn_register' type='button' class='btn btn-primary'>走起～</button>
+      {{#if message}}
+      <span style='color: red'>{{message}}</span>
+      {{/if}}
     </div>
   </div>
 </template>
