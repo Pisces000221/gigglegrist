@@ -15,6 +15,17 @@ body {
   margin: 0px;
 }
 
+.bordered {
+  background-color: #FFF;
+  border-style: solid;
+  border-color: #DDD;
+  border-width: 1px;
+  border-radius: 4px 4px 0px 0px;
+  box-shadow: none;
+  padding: 15px 15px 15px;
+  display: table;
+}
+
 .bg-container {
   background: none no-repeat scroll center center / cover #fff;
 }
@@ -29,9 +40,17 @@ body {
   color: #fff;
 }
 
+.title-small-mainpage {
+  font-size: 54px;
+}
+
 .subtitle-mainpage {
   font-family: Quicksand;
   font-size: 48px;
   line-height: 48px;
   font-weight: 700;
+}
+
+#btn_register {
+  width: 100%;
 }
