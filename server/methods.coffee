@@ -37,7 +37,24 @@ Meteor.methods
       password: NonEmptyString
       avatar: String
     Accounts.setPassword user_id, options.password
-    Meteor.users.update user_id, $set: profile: avatar: options.avatar
+    # 创建第一个马甲
+    @userId = user_id
+    mask_id = Meteor.call 'create_mask', options.username
+    @userId = null
+    Meteor.users.update user_id, $set: { 'profile.avatar': options.avatar, 'profile.last_mask': mask_id }
+  'create_mask': (name) ->
+    if not @userId?
+      throw new Meteor.Error 403, '搞笑！没登录怎么创建马甲！'
+    check name, ValidMaskName
+    id = Random.id()
+    Masks.insert
+      _id: id
+      name: name
+      colour: Please.make_color()
+      timestamp: (new Date).getTime()
+    console.log "第#{Masks.find().count()}个马甲被创建"
+    Meteor.users.update @userId, $addToSet: 'profile.masks': id
+    return id
   'create_room': (options) ->
     if not @userId?
       throw new Meteor.Error 403, '貌似你还没登录……'
@@ -45,7 +62,7 @@ Meteor.methods
       title: NonEmptyString
       description: NonEmptyString
     options.id ?= Random.id()
-    GM.rooms.insert
+    Rooms.insert
       _id: options.id
       title: options.title
       description: options.description

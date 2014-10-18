@@ -2,3 +2,4 @@
 
 Meteor.publish 'users', -> Meteor.users.find()
 Meteor.publish 'rooms', -> GM.rooms.find()
+Meteor.publish 'masks', -> GM.masks.find()
