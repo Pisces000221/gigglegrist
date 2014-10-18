@@ -6,3 +6,8 @@
 meteor-platform
 autopublish
 insecure
+iron:router
+frozeman:animation-helper
+coffeescript
+mrt:bootstrap-3
+
