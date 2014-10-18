@@ -3,11 +3,11 @@ NonEmptyString = Match.Where (x) ->
   x.length isnt 0
 
 UserID = Match.Where (x) ->
-  check x, String
+  check x, NonEmptyString
   Meteor.users.find(x).count() isnt 0
 
 ValidMaskName = Match.Where (x) ->
-  check x, String
+  check x, NonEmptyString
   true
 
 GM = {}
