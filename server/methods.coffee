@@ -19,7 +19,7 @@ GM.sendEnrollmentEmail = (user_id) ->
   user = Meteor.users.findOne user_id
   Email.send
     from: '"Mangostana Team" <1786762946@qq.com>'
-    to: user.emails[0]
+    to: user.emails[0].address
     subject: 'Hi，我看到你了～～'
     html: GM.enrollmentEmailContent user_id
 
