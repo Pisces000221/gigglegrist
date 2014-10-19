@@ -39,17 +39,20 @@ Meteor.methods
     Accounts.setPassword user_id, options.password
     # 创建第一个马甲
     @userId = user_id
-    mask_id = Meteor.call 'create_mask', options.username
+    mask_id = Meteor.call 'create_mask', options.username, options.avatar
     @userId = null
-    Meteor.users.update user_id, $set: { 'profile.avatar': options.avatar, 'profile.last_mask': mask_id }
-  'create_mask': (name) ->
+    Meteor.users.update user_id, $set: 'profile.last_mask': mask_id
+  'create_mask': (name, avatar) ->
     if not @userId?
       throw new Meteor.Error 403, '搞笑！没登录怎么创建马甲！'
+    avatar ?= ''
     check name, ValidMaskName
+    check avatar, String
     id = Random.id()
     Masks.insert
       _id: id
       name: name
+      avatar: avatar
       colour: Please.make_color()
       timestamp: (new Date).getTime()
     console.log "第#{Masks.find().count()}个马甲被创建"

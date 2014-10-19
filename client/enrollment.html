@@ -28,5 +28,8 @@
     {{#if message}}
     <span style='color: red'>{{message}}</span>
     {{/if}}
+    {{#if in_progress}}
+    &nbsp;&nbsp;<i class='fa fa-spinner fa-spin'></i>
+    {{/if}}
   </form>
 </template>
