@@ -1,0 +1,9 @@
+<template name='man_masks'>
+  {{#if logged_in}}
+  {{#each my_masks}}
+  {{name}}<br>
+  {{/each}}
+  {{else}}
+  你不登录，我怎么知道你是谁？ :)
+  {{/if}}
+</template>
