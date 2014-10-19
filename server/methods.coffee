@@ -28,8 +28,11 @@ Meteor.methods
   'register': (email) ->
     id = Accounts.createUser email: email
     GM.sendEnrollmentEmail id
+  'enrolled': (user_id) -> Meteor.users.findOne(user_id).profile?.enrolled
   'enroll': (user_id, options) ->
     check user_id, UserID
+    if Meteor.users.findOne(user_id).profile?.enrolled
+      throw new Meteor.Error 403, '坑爹啊！你已经注册过了有木有？！'
     options.avatar ?= ''
     check options,
       username: ValidMaskName
@@ -41,7 +44,7 @@ Meteor.methods
     @userId = user_id
     mask_id = Meteor.call 'create_mask', options.username, options.avatar
     @userId = null
-    Meteor.users.update user_id, $set: 'profile.last_mask': mask_id
+    Meteor.users.update user_id, $set: { 'profile.enrolled': true, 'profile.last_mask': mask_id }
   'create_mask': (name, avatar) ->
     if not @userId?
       throw new Meteor.Error 403, '搞笑！没登录怎么创建马甲！'

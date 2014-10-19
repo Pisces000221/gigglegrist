@@ -6,6 +6,8 @@ Template.enrollment.helpers
   'email': -> Meteor.users.findOne(this.trim()).emails[0].address
   'message': -> Session.get 'enroll_msg'
   'in_progress': -> Session.get 'enroll_in_progress'
+  'not_enrolled': -> not Meteor.users.findOne(this.trim()).profile?.enrolled
+  'not_exist': -> not Meteor.users.findOne(this.trim())?
 
 Template.enrollment.events
   'click #btn_submit': ->

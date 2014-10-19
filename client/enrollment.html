@@ -1,4 +1,5 @@
 <template name='enrollment'>
+  {{#if not_enrolled}}
   <h1>胜利就在前方！</h1>
   <p>欢迎来到GM。不过，还差一点……你没发现自己连个像样的用户名都没有吗？！</p>
   <hr>
@@ -32,4 +33,11 @@
     &nbsp;&nbsp;<i class='fa fa-spinner fa-spin'></i>
     {{/if}}
   </form>
+  {{else}}
+    {{#if not_exist}}
+    用户不存在 T^T
+    {{else}}
+    {{email}}已经注册过，这个页面失效啦～～
+    {{/if}}
+  {{/if}}
 </template>
