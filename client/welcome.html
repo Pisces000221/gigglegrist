@@ -4,7 +4,7 @@
 </head>
 
 <template name='home_page'>
-  {{#if currentUser}}
+  {{#if logged_in}}
   {{> room_list}}
   {{else}}
   {{> welcome}}
