@@ -1,4 +1,14 @@
+Session.setDefault 'man_masks_msg', ''
+
+Template.man_masks.events
+  'click #btn_create_mask': ->
+    GM.create_mask document.getElementById('txt_mask_name').value, (err, result) ->
+      if err then Session.set 'man_masks_msg', err.toString()
+      else Session.set 'man_masks_msg', ''
+      document.getElementById('txt_mask_name').value = ''
+
 Template.man_masks.helpers
+  'message': -> Session.get 'man_masks_msg'
   'my_masks': -> GM.masks.find _id: $in: Meteor.user().profile.masks
   'my_avatar': -> if @avatar is '' then 'http://www.gravatar.com/avatar/00000000000000000000000000000001?d=identicon' else @avatar
   # 'selected': -> 'active' if Meteor.user().profile.last_mask is @_id

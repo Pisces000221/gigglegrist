@@ -1,5 +1,17 @@
 <template name='man_masks'>
   {{#if logged_in}}
+  <div class='row'>
+    <div class='col-lg-6'>
+      <div class='input-group'>
+        <input id='txt_mask_name' type='text' class='form-control' placeholder='添加一个马甲'>
+        <span class='input-group-btn'>
+          <button id='btn_create_mask' class='btn btn-default' type='button'><i class='fa fa-plus'></i></button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <span style='color: red'>{{message}}</span>
+  <br>
   <ul class='list-group'>
     {{#each my_masks}}
     <a href='#' class='list-group-item' style='{{colours}}'>
