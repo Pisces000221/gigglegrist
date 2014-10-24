@@ -6,11 +6,17 @@ UserID = Match.Where (x) ->
   check x, NonEmptyString
   Meteor.users.find(x).count() isnt 0
 
-ValidMaskName = Match.Where (x) ->
-  check x, NonEmptyString
-  true
-
 GM = {}
+
+# http://stackoverflow.com/questions/5623838/
+GM.hexToRgb = (hex) ->
+  result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec hex
+  if result then {
+      r: parseInt result[1], 16
+      g: parseInt result[2], 16
+      b: parseInt result[3], 16
+  }
+  else null
 
 GM.enrollmentEmailContent = (user_id) ->
   Meteor.absoluteUrl "enroll/#{user_id}"
@@ -48,15 +54,16 @@ Meteor.methods
   'create_mask': (name, avatar) ->
     if not @userId?
       throw new Meteor.Error 403, '搞笑！没登录怎么创建马甲！'
+    if Masks.findOne(name: name)?
+      throw new Meteor.Error 403, '真不敢相信……你要的名字居然已经被用掉了……'
     avatar ?= ''
-    check name, ValidMaskName
     check avatar, String
     id = Random.id()
     Masks.insert
       _id: id
       name: name
       avatar: avatar
-      colour: Please.make_color()
+      colour: GM.hexToRgb Please.make_color()
       timestamp: (new Date).getTime()
     console.log "第#{Masks.find().count()}个马甲被创建"
     Meteor.users.update @userId, $addToSet: 'profile.masks': id
