@@ -15,3 +15,4 @@ Template.man_masks.helpers
   'colours': ->
     alpha = if Meteor.user().profile.last_mask isnt @_id then 0.35 else 1.0
     "color: #000; background-color: rgba(#{@colour.r}, #{@colour.g}, #{@colour.b}, #{alpha})"
+  'is_selected': -> Meteor.user().profile.last_mask is @_id
