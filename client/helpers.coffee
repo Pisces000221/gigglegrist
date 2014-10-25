@@ -15,6 +15,7 @@ Template.registerHelper 'cur_avatar', -> if @avatar is '' then 'http://www.grava
 Template.registerHelper 'has_avatar', -> @avatar isnt ''
 Template.registerHelper 'has_avatar_edit', -> @avatar isnt '' and not Session.get 'removed_avatar'  # 在马甲编辑页面中使用
 Template.registerHelper 'hash_colour', -> '#' + window.hex_colour @colour
+Template.registerHelper 'rgba_colour', (alpha) -> "rgba(#{@colour.r}, #{@colour.g}, #{@colour.b}, #{alpha})"
 
 ######## 全局方法 ########
 # http://stackoverflow.com/q/3032721
