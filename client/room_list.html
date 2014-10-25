@@ -1,7 +1,7 @@
 <template name='room_list'>
-  <ul class='nav nav-list bs-docs-sidenav'>
+  <ul class='list-group'>
     {{#each all_rooms}}
-    <li><a href='#'>{{title}}</a></li>
+    <a href='#' class='list-group-item'>{{title}}</a>
     {{/each}}
   </ul>
 </template>
