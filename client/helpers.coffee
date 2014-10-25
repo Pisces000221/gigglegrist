@@ -12,3 +12,20 @@ Template.registerHelper 'logged_in', -> Session.get 'logged_in'
 
 Template.registerHelper 'my_masks', -> GM.masks.find _id: $in: Meteor.user().profile.masks
 Template.registerHelper 'cur_avatar', -> if @avatar is '' then 'http://www.gravatar.com/avatar/' + md5(@_id) + '?d=identicon' else @avatar
+Template.registerHelper 'has_avatar', -> @avatar isnt ''
+Template.registerHelper 'hash_colour', -> '#' + window.hex_colour @colour
+
+######## 全局方法 ########
+# http://stackoverflow.com/q/3032721
+# 加载Javascript和样式表的方法
+window.load_script = (script_url) ->
+  script_tag = document.createElement 'script'
+  script_tag.type = 'text/javascript'
+  script_tag.src = script_url
+  document.head.appendChild script_tag
+
+window.hex2 = (n) ->
+  s = n.toString(16)
+  if s.length is 1 then '0' + s else s
+
+window.hex_colour = (c) -> window.hex2(c.r) + window.hex2(c.g) + window.hex2(c.b)
