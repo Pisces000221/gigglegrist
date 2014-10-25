@@ -6,6 +6,12 @@ UserID = Match.Where (x) ->
   check x, NonEmptyString
   Meteor.users.find(x).count() isnt 0
 
+ColourRGB = Match.Where (x) ->
+  check x.r, Number
+  check x.g, Number
+  check x.b, Number
+  0 <= x.r <= 255 and 0 <= x.g <= 255 and 0 <= x.b <= 255
+
 GM = {}
 
 # http://stackoverflow.com/questions/5623838/
@@ -68,6 +74,24 @@ Meteor.methods
     console.log "第#{Masks.find().count()}个马甲被创建"
     Meteor.users.update @userId, $addToSet: 'profile.masks': id
     return id
+  'modify_mask': (id, name, colour, avatar) ->
+    if not @userId?
+      throw new Meteor.Error 403, '貌似没登录？？'
+    if Meteor.user().profile.masks.indexOf(id) is -1
+      throw new Meteor.Error 403, '喂喂，不要乱动别人的东西哈'
+    if not name? or not colour? or not avatar?
+      throw new Meteor.Error 403, '把参数给全好不……'
+    check name, String
+    check colour, ColourRGB
+    # 参数avatar的含义
+    # ''：保持不变
+    # 'remove'：删除原有的头像
+    # 其它字符串：更改头像
+    check avatar, String
+    modifier = $set: { name: name, colour: colour }
+    if avatar is 'remove' then modifier.$set.avatar = ''
+    else if avatar isnt '' then modifier.$set.avatar = avatar
+    Masks.update id, modifier
   'create_room': (options) ->
     if not @userId?
       throw new Meteor.Error 403, '貌似你还没登录……'

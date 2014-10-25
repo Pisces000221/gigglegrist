@@ -5,13 +5,13 @@
   <hr>
   <form role='form'>
     <div class='form-group'>
-      <label for='txt_username'>名称</label>
-      <input type='text' class='form-control' id='txt_username' value='{{name}}'>
+      <label for='txt_name'>名称</label>
+      <input type='text' class='form-control' id='txt_name' value='{{name}}'>
       <label for='txt_colour'>主题色</label>
       <input type='text' class='form-control color {hash:true}' id='txt_colour' style='background-color: {{hash_colour}}'>
     </div>
     <div class='form-group'>
-      <label for='exampleInputFile'>头像（可选）</label>
+      <label for='file_avatar'>头像（可选）</label>
       {{#if has_avatar}}
       <button type='button' class='btn btn-warning'>删除</button>
       {{else}}
