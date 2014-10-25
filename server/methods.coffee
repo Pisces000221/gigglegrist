@@ -47,7 +47,7 @@ Meteor.methods
       throw new Meteor.Error 403, '坑爹啊！你已经注册过了有木有？！'
     options.avatar ?= ''
     check options,
-      username: ValidMaskName
+      username: NonEmptyString
       # TODO: 使用HTTPS或者更安全的办法传输这个信息（HTTP下直接传输密码太吓人了）
       password: NonEmptyString
       avatar: String
