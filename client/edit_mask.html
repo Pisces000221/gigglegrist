@@ -1,0 +1,9 @@
+<template name='edit_mask'>
+  {{#if logged_in}}
+  <img src='{{cur_avatar}}' style='width: 64px; height: 64px;' alt='' class='img-circle'>
+  <span style='font-size: 28px'><b>{{name}}</b></span>
+  <hr>
+  {{else}}
+  你不登录，我怎么知道你是谁？ :)
+  {{/if}}
+</template>

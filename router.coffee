@@ -13,3 +13,8 @@ Router.map ->
   @route 'man_masks',
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
+  @route 'edit_mask',
+    path: '/edit_mask/:id'
+    data: -> GM.masks.findOne @params.id
+    layoutTemplate: 'layout'
+    yieldTemplates: 'header': to: 'top'
