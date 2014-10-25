@@ -13,6 +13,7 @@ Template.registerHelper 'logged_in', -> Session.get 'logged_in'
 Template.registerHelper 'my_masks', -> GM.masks.find _id: $in: Meteor.user().profile.masks
 Template.registerHelper 'cur_avatar', -> if @avatar is '' then 'http://www.gravatar.com/avatar/' + md5(@_id) + '?d=identicon' else @avatar
 Template.registerHelper 'has_avatar', -> @avatar isnt ''
+Template.registerHelper 'has_avatar_edit', -> @avatar isnt '' and not Session.get 'removed_avatar'  # 在马甲编辑页面中使用
 Template.registerHelper 'hash_colour', -> '#' + window.hex_colour @colour
 
 ######## 全局方法 ########

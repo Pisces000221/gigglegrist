@@ -4,6 +4,7 @@ Session.setDefault 'edit_mask_in_progress', false
 
 Template.edit_mask.created = ->
   window.load_script '/external/jscolor/jscolor.js'
+  Session.set 'removed_avatar', false
 
 init_jscolor = (t) ->
   e = document.getElementById 'txt_colour'
@@ -17,6 +18,7 @@ Template.edit_mask.helpers
 
 Template.edit_mask.events
   'focus #txt_colour': -> init_jscolor(this)
+  'click #btn_rm_avatar': -> Session.set 'removed_avatar', true
   'click #btn_submit': ->
     Session.set 'edit_mask_msg', ''
     Session.set 'edit_mask_in_progress', true
