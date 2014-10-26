@@ -1,5 +1,10 @@
 <template name='room'>
   {{#each room_messages}}
-  <span style='color: {{speaker_colour}}'>{{speaker_name}}: {{message}}</span><br>
+  <hr class='message_splitter'>
+  <img src='{{speaker_avatar}}' style='width: 24px; height: 24px;' alt='' class='img-circle'>
+  <span class='speaker_name_disp'>{{speaker_name}}</span>
+  <div class='border_stretch' style='background-color: {{speaker_colour_fade}}'>
+    <span style='color: {{speaker_colour}}'>{{message}}</span><br>
+  </div>
   {{/each}}
 </template>

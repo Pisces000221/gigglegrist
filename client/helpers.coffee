@@ -33,3 +33,5 @@ window.hex2 = (n) ->
 window.hex_colour = (c) -> window.hex2(c.r) + window.hex2(c.g) + window.hex2(c.b)
 
 window.rgba_colour = (c, alpha) -> "rgba(#{c.r}, #{c.g}, #{c.b}, #{alpha})"
+
+window.avatar = (mask) -> if mask.avatar is '' then 'http://www.gravatar.com/avatar/' + md5(mask._id) + '?d=identicon' else mask.avatar
