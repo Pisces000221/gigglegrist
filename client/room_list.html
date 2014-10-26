@@ -1,7 +1,7 @@
 <template name='room_list'>
   <ul class='list-group'>
     {{#each all_rooms}}
-    <a href='#' class='list-group-item'>{{title}}</a>
+    <a href='{{pathFor "room" id=_id}}' class='list-group-item'>{{title}}</a>
     {{/each}}
   </ul>
 </template>

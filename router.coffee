@@ -18,3 +18,8 @@ Router.map ->
     data: -> GM.masks.findOne @params.id
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
+  @route 'room',
+    path: '/room/:id'
+    data: -> GM.rooms.findOne @params.id
+    layoutTemplate: 'layout'
+    yieldTemplates: 'header': to: 'top'

@@ -115,7 +115,7 @@ Meteor.methods
     Messages.insert
       _id: id
       room: room
-      speaker: @userId
+      speaker: Meteor.user().profile.last_mask
       message: message
       timestamp: (new Date).getTime()
 

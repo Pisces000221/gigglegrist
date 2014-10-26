@@ -31,3 +31,5 @@ window.hex2 = (n) ->
   if s.length is 1 then '0' + s else s
 
 window.hex_colour = (c) -> window.hex2(c.r) + window.hex2(c.g) + window.hex2(c.b)
+
+window.rgba_colour = (c, alpha) -> "rgba(#{c.r}, #{c.g}, #{c.b}, #{alpha})"
