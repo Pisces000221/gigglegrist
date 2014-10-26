@@ -105,6 +105,19 @@ Meteor.methods
       description: options.description
       creator: options.creator
       timestamp: (new Date).getTime()
+  'speak': (room, message) ->
+    if not @userId?
+      throw new Meteor.Error 403, '你忘登录了！'
+    check message, NonEmptyString
+    if Rooms.find(room).count() is 0
+      throw new Meteor.Error 403, '木有这个房间'
+    id = (Messages.find().count() + 1).toString()
+    Messages.insert
+      _id: id
+      room: room
+      speaker: @userId
+      message: message
+      timestamp: (new Date).getTime()
 
 Meteor.startup ->
   # 防止在Firefox内无法显示某些东东

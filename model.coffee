@@ -5,9 +5,11 @@
 GM = {};
 Rooms = new Meteor.Collection('rooms');
 Masks = new Meteor.Collection('masks');
+Messages = new Meteor.Collection('messages');
 `
 GM.rooms = Rooms
 GM.masks = Masks
+GM.messages = Messages
 
 GM.register = (email) ->
   Meteor.call 'register', email
@@ -23,3 +25,6 @@ GM.modify_mask = (args...) ->
 
 GM.create_room = (args...) ->
   Meteor.call 'create_room', args...
+
+GM.speak = (args...) ->
+  Meteor.call 'speak', args...
