@@ -16,7 +16,11 @@
     {{#each my_masks}}
     <a href='{{pathFor "edit_mask" id=_id}}' class='list-group-item' style='{{colours}}'>
       <img src='{{cur_avatar}}' style='width: 40px; height: 40px;' alt='' class='img-circle'>&nbsp;{{name}}
-      {{#if is_selected}}<span style='float: right'><i class='fa fa-check fa-2x'></i></span>{{/if}}
+      {{#if is_selected}}
+      <span style='float: right'><i class='fa fa-check fa-2x'></i></span>
+      {{else}}
+      <a href='#' style='float: right' class='btn btn-default input-sm btn_use_mask'><i class='fa fa-comments'></i></a>
+      {{/if}}
     </a>
     {{/each}}
   </ul>

@@ -6,6 +6,7 @@ Template.man_masks.events
       if err then Session.set 'man_masks_msg', err.toString()
       else Session.set 'man_masks_msg', ''
       document.getElementById('txt_mask_name').value = ''
+  'click .btn_use_mask': -> GM.use_mask @_id
 
 Template.man_masks.helpers
   'message': -> Session.get 'man_masks_msg'

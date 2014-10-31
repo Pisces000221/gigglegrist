@@ -92,6 +92,12 @@ Meteor.methods
     if avatar is 'remove' then modifier.$set.avatar = ''
     else if avatar isnt '' then modifier.$set.avatar = avatar
     Masks.update id, modifier
+  'use_mask': (id) ->
+    if not @userId?
+      throw new Meteor.Error 403, '如果我没看错的话，你没登录'
+    if Meteor.user().profile.masks.indexOf(id) is -1
+      throw new Meteor.Error 403, '喂喂，不要乱动别人的东西哈'
+    Meteor.users.update @userId, $set: 'profile.last_mask': id
   'create_room': (options) ->
     if not @userId?
       throw new Meteor.Error 403, '貌似你还没登录……'

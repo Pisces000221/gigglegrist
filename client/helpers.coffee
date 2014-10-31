@@ -47,11 +47,11 @@ Template.header.helpers
   'message': -> Session.get 'header_login_message'
 
 Template.header.events
-  'click #btn_login': ->
+  'click #btn_header_login': ->
     Session.set 'header_login_in_progress', true
     Session.set 'header_login_message', ''
-    email = document.getElementById('txt_email').value
-    password = document.getElementById('txt_password').value
+    email = document.getElementById('txt_header_email').value
+    password = document.getElementById('txt_header_password').value
     Meteor.loginWithPassword email, password, (err) ->
       Session.set 'header_login_message', err.toString() if err?
       Session.set 'header_login_in_progress', false
