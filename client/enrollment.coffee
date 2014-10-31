@@ -7,7 +7,7 @@ Template.enrollment.helpers
   'message': -> Session.get 'enroll_msg'
   'in_progress': -> Session.get 'enroll_in_progress'
   'not_enrolled': -> not Meteor.users.findOne(this.trim()).profile?.enrolled
-  'not_exist': -> not Meteor.users.findOne(this.trim())?
+  'neither_found_nor_exist': -> not Meteor.users.findOne(this.trim())?
 
 Template.enrollment.events
   'click #btn_submit': ->

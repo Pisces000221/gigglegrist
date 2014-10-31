@@ -34,10 +34,10 @@
     {{/if}}
   </form>
   {{else}}
-    {{#if not_exist}}
-    用户不存在 T^T
+    {{#if neither_found_nor_exist}}
+    <i class='fa fa-spinner fa-spin'></i>&nbsp;努力加载中…………
     {{else}}
-    {{email}}已经注册过，这个页面失效啦～～
+    <b>{{email}}</b> 已经注册过，这个页面失效啦～～
     {{/if}}
   {{/if}}
 </template>
