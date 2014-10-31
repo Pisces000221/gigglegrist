@@ -35,3 +35,21 @@ window.hex_colour = (c) -> window.hex2(c.r) + window.hex2(c.g) + window.hex2(c.b
 window.rgba_colour = (c, alpha) -> "rgba(#{c.r}, #{c.g}, #{c.b}, #{alpha})"
 
 window.avatar = (mask) -> if mask.avatar is '' then 'http://www.gravatar.com/avatar/' + md5(mask._id) + '?d=identicon' else mask.avatar
+
+######## header ########
+Session.setDefault 'header_login_in_progress', false
+Session.setDefault 'header_login_message', ''
+
+Template.header.helpers
+  'in_progress': -> Session.get 'header_login_in_progress'
+  'message': -> Session.get 'header_login_message'
+
+Template.header.events
+  'click #btn_login': ->
+    Session.set 'header_login_in_progress', true
+    Session.set 'header_login_message', ''
+    email = document.getElementById('txt_email').value
+    password = document.getElementById('txt_password').value
+    Meteor.loginWithPassword email, password, (err) ->
+      Session.set 'header_login_message', err.toString() if err?
+      Session.set 'header_login_in_progress', false
