@@ -1,11 +1,11 @@
 <template name='room'>
   {{#each room_messages}}
-  <hr class='message_splitter'>
+  <div class='message_splitter'></div>
   <div class='message-container'>
     <img src='{{speaker_avatar}}' style='width: 24px; height: 24px;' alt='' class='img-circle'>
     <span class='speaker_name_disp'>
       {{speaker_name}}
-      <span style='float: right'>#{{_id}}</span>
+      <span style='float: right; text-align: right'><b>#{{_id}}</b><br>{{readable_time timestamp}}</span>
     </span>
     <div class='message-border' style='background-color: {{speaker_colour_fade}}'>
       <span style='color: {{speaker_colour}}'>{{message}}</span><br>

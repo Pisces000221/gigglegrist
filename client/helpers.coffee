@@ -23,6 +23,8 @@ Template.registerHelper 'rgba_colour', (alpha) -> "rgba(#{@colour.r}, #{@colour.
 
 Template.registerHelper 'auto_fit_bg', (c) -> if window.is_light_colour c then '#000' else '#fff'
 
+Template.registerHelper 'readable_time', (timestamp) -> moment(timestamp).locale('zh-cn').calendar()
+
 ######## 全局方法 ########
 # http://stackoverflow.com/q/3032721
 # 加载Javascript和样式表的方法
