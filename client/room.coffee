@@ -15,4 +15,4 @@ Template.room.helpers
   'speaker_colour': -> window.rgba_colour @speaker.colour, 1
   'speaker_colour_fade': -> window.rgba_colour @speaker.colour, 0.2
   'speaker_name': -> @speaker.name
-  'speaker_avatar': -> window.avatar_img @speaker.avatar
+  'speaker_avatar': -> window.avatar @speaker
