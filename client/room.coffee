@@ -12,6 +12,7 @@ Template.room.events
 
 Template.room.helpers
   'room_messages': -> GM.messages.find room: @_id
+  'is_broadcast': -> @speaker is 'broadcast'
   'speaker_colour': -> window.rgba_colour @speaker.colour, 1
   'speaker_colour_fade': -> window.rgba_colour @speaker.colour, 0.2
   'speaker_name': -> @speaker.name

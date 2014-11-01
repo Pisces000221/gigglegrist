@@ -91,6 +91,13 @@ Meteor.methods
     modifier = $set: { name: name, colour: colour }
     if avatar is 'remove' then modifier.$set.avatar = ''
     else if avatar isnt '' then modifier.$set.avatar = Avatars.insert img: avatar
+    # 先发送广播
+    mask = Masks.findOne id
+    rooms = []
+    Messages.find('speaker.name': mask.name).forEach (m) ->
+      if rooms.indexOf m.room is -1 then rooms.push m.room
+    if mask.name isnt name
+      Meteor.call 'broadcast', rooms, "[#{mask.name}] 把名字改为了 [#{name}]"
     Masks.update id, modifier
   'use_mask': (id) ->
     if not @userId?
@@ -119,13 +126,22 @@ Meteor.methods
       throw new Meteor.Error 403, '木有这个房间'
     id = (Messages.find().count() + 1).toString()
     mask = Masks.findOne Meteor.user().profile.last_mask,
-      fields: { _id:1, name: 1, avatar: 1, colour: 1 }
+      fields: { _id: 1, name: 1, avatar: 1, colour: 1 }
     Messages.insert
       _id: id
       room: room
       speaker: mask
       message: message
       timestamp: (new Date).getTime()
+  # TODO: 把这个保留在服务器内部，不能错客户端调用
+  'broadcast': (rooms, message) ->
+    timestamp = (new Date).getTime()
+    (Messages.insert
+      _id: (Messages.find().count() + 1).toString()
+      room: room
+      speaker: 'broadcast'
+      message: message
+      timestamp: timestamp) for room in rooms
 
 Meteor.startup ->
   # 防止在Firefox内无法显示某些东东

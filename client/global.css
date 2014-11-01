@@ -60,6 +60,12 @@ body {
   width: 61.8%;
 }
 
+.broadcast-container {
+  width: 100%;
+  background: #C0C0C0;
+  text-align: center;
+}
+
 .message-border {
   border: 1px solid;
   border-radius: 5px;

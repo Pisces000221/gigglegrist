@@ -1,6 +1,9 @@
 <template name='room'>
   {{#each room_messages}}
   <div class='message_splitter'></div>
+  {{#if is_broadcast}}
+  <div class='broadcast-container'>{{message}}</div>
+  {{else}}
   <div class='message-container'>
     <img src='{{speaker_avatar}}' style='width: 24px; height: 24px;' alt='' class='img-circle'>
     <span class='speaker_name_disp'>
@@ -11,6 +14,7 @@
       <span style='color: {{speaker_colour}}'>{{message}}</span><br>
     </div>
   </div>
+  {{/if}}
   {{/each}}
   <nav class='navbar navbar-default navbar-fixed-bottom'>
     <div class='input-group message-send'>
