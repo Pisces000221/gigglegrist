@@ -6,10 +6,12 @@ GM = {};
 Rooms = new Meteor.Collection('rooms');
 Masks = new Meteor.Collection('masks');
 Messages = new Meteor.Collection('messages');
+Avatars = new Meteor.Collection('avatars');
 `
 GM.rooms = Rooms
 GM.masks = Masks
 GM.messages = Messages
+GM.avatars = Avatars
 
 GM.register = (email) ->
   Meteor.call 'register', email

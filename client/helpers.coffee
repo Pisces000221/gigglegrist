@@ -2,6 +2,7 @@ Template.header.events
   'click #a_logout': -> Meteor.logout()
 
 Meteor.subscribe 'masks'
+Meteor.subscribe 'avatars'
 
 Session.setDefault 'logged_in', false
 Tracker.autorun -> Session.set 'logged_in', Meteor.userId()?
@@ -13,7 +14,7 @@ Template.registerHelper 'current_maskname', -> GM.masks.findOne(Meteor.user().pr
 Template.registerHelper 'logged_in', -> Session.get 'logged_in'
 
 Template.registerHelper 'my_masks', -> GM.masks.find _id: $in: Meteor.user().profile.masks
-Template.registerHelper 'cur_avatar', -> if @avatar is '' then 'http://www.gravatar.com/avatar/' + md5(@_id) + '?d=identicon' else @avatar
+Template.registerHelper 'cur_avatar', -> window.avatar this
 Template.registerHelper 'has_avatar', -> @avatar isnt ''
 Template.registerHelper 'has_avatar_edit', -> @avatar isnt '' and not Session.get 'removed_avatar'  # 在马甲编辑页面中使用
 Template.registerHelper 'hash_colour', -> '#' + window.hex_colour @colour
@@ -42,7 +43,7 @@ window.hex_colour = (c) -> window.hex2(c.r) + window.hex2(c.g) + window.hex2(c.b
 
 window.rgba_colour = (c, alpha) -> "rgba(#{c.r}, #{c.g}, #{c.b}, #{alpha})"
 
-window.avatar = (mask) -> if mask.avatar is '' then 'http://www.gravatar.com/avatar/' + md5(mask._id) + '?d=identicon' else mask.avatar
+window.avatar = (mask) -> if mask.avatar is '' then 'http://www.gravatar.com/avatar/' + md5(mask._id) + '?d=identicon' else GM.avatars.findOne(mask.avatar).img
 
 ######## header ########
 Session.setDefault 'header_login_in_progress', false

@@ -68,7 +68,7 @@ Meteor.methods
     Masks.insert
       _id: id
       name: name
-      avatar: avatar
+      avatar: Avatars.insert img: avatar
       colour: GM.hexToRgb Please.make_color()
       timestamp: (new Date).getTime()
     console.log "第#{Masks.find().count()}个马甲被创建"
@@ -90,7 +90,7 @@ Meteor.methods
     check avatar, String
     modifier = $set: { name: name, colour: colour }
     if avatar is 'remove' then modifier.$set.avatar = ''
-    else if avatar isnt '' then modifier.$set.avatar = avatar
+    else if avatar isnt '' then modifier.$set.avatar = Avatars.insert img: avatar
     Masks.update id, modifier
   'use_mask': (id) ->
     if not @userId?
