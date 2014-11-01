@@ -68,7 +68,7 @@ Meteor.methods
     Masks.insert
       _id: id
       name: name
-      avatar: Avatars.insert img: avatar
+      avatar: if avatar is '' then '' else Avatars.insert img: avatar
       colour: GM.hexToRgb Please.make_color()
       timestamp: (new Date).getTime()
     console.log "第#{Masks.find().count()}个马甲被创建"
