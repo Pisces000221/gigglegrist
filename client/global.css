@@ -88,3 +88,23 @@ body {
 .input-group.message-send {
   padding: 7px 6px 0px 6px;
 }
+
+.no-bottom-margin {
+  margin-bottom: 0px;
+}
+
+/* Bootstrap package里的progress-bar-striped出了点问题……只好自己写了 */
+.progress-bar-striped {
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
+}
+
+.stick-left {
+  float: left;
+  text-align: left;
+}
+
+.stick-right {
+  float: right;
+  text-align: right;
+}

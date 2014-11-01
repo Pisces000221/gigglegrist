@@ -33,3 +33,13 @@ GM.speak = (args...) ->
 
 GM.use_mask = (args...) ->
   Meteor.call 'use_mask', args...
+
+GM.level_up_pt = (lv) -> 10 + lv * 5
+
+GM.level = (pt) ->
+  lv = 0
+  up_pt = 0
+  while up_pt <= pt
+    lv++
+    up_pt += GM.level_up_pt lv
+  lv
