@@ -118,10 +118,12 @@ Meteor.methods
     if Rooms.find(room).count() is 0
       throw new Meteor.Error 403, '木有这个房间'
     id = (Messages.find().count() + 1).toString()
+    mask = Masks.findOne Meteor.user().profile.last_mask,
+      fields: { _id:1, name: 1, avatar: 1, colour: 1 }
     Messages.insert
       _id: id
       room: room
-      speaker: Meteor.user().profile.last_mask
+      speaker: mask
       message: message
       timestamp: (new Date).getTime()
 

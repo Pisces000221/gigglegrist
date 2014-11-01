@@ -14,6 +14,7 @@ Template.registerHelper 'current_maskname', -> GM.masks.findOne(Meteor.user().pr
 Template.registerHelper 'logged_in', -> Session.get 'logged_in'
 
 Template.registerHelper 'my_masks', -> GM.masks.find _id: $in: Meteor.user().profile.masks
+Template.registerHelper 'avatar', (x) -> window.avatar x
 Template.registerHelper 'cur_avatar', -> window.avatar this
 Template.registerHelper 'has_avatar', -> @avatar isnt ''
 Template.registerHelper 'has_avatar_edit', -> @avatar isnt '' and not Session.get 'removed_avatar'  # 在马甲编辑页面中使用
@@ -43,7 +44,9 @@ window.hex_colour = (c) -> window.hex2(c.r) + window.hex2(c.g) + window.hex2(c.b
 
 window.rgba_colour = (c, alpha) -> "rgba(#{c.r}, #{c.g}, #{c.b}, #{alpha})"
 
-window.avatar = (mask) -> if mask.avatar is '' then 'http://www.gravatar.com/avatar/' + md5(mask._id) + '?d=identicon' else GM.avatars.findOne(mask.avatar).img
+window.avatar = (mask) -> if mask.avatar is '' then 'http://www.gravatar.com/avatar/' + md5(mask._id) + '?d=identicon' else window.avatar_img mask.avatar
+
+window.avatar_img = (avatar_id) -> GM.avatars.findOne(avatar_id).img
 
 ######## header ########
 Session.setDefault 'header_login_in_progress', false

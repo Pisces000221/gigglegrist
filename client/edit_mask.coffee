@@ -42,7 +42,7 @@ Template.edit_mask.events
         Session.set 'edit_mask_in_progress', false
       return
 
-    if picker.files.length isnt 0
+    if picker? and picker.files.length isnt 0
       # 新的头像
       reading_new_avatar = true
       reader.readAsDataURL picker.files[0]
