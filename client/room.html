@@ -1,10 +1,12 @@
 <template name='room'>
   {{#each room_messages}}
   <hr class='message_splitter'>
-  <img src='{{speaker_avatar}}' style='width: 24px; height: 24px;' alt='' class='img-circle'>
-  <span class='speaker_name_disp'>{{speaker_name}}</span>
-  <div class='border_stretch' style='background-color: {{speaker_colour_fade}}'>
-    <span style='color: {{speaker_colour}}'>{{message}}</span><br>
+  <div class='message-container'>
+    <img src='{{speaker_avatar}}' style='width: 24px; height: 24px;' alt='' class='img-circle'>
+    <span class='speaker_name_disp'>{{speaker_name}}</span>
+    <div class='message-border' style='background-color: {{speaker_colour_fade}}'>
+      <span style='color: {{speaker_colour}}'>{{message}}</span><br>
+    </div>
   </div>
   {{/each}}
   <nav class='navbar navbar-default navbar-fixed-bottom' role='navigation'>

@@ -56,16 +56,14 @@ body {
   width: 100%;
 }
 
-.border_stretch {
-  /*border: 15px solid transparent;
-  -moz-border-image: url(msg_border.svg) 30 30 stretch;
-  -webkit-border-image: url(msg_border.svg) 30 30 stretch;
-  -o-border-image: url(msg_border.svg) 30 30 stretch;
-  border-image: url(msg_border.svg) 30 30 stretch;*/
+.message-container {
+  width: 61.8%;
+}
+
+.message-border {
   border: 1px solid;
   border-radius: 5px;
   -moz-border-radius: 5px;
-  width: 61.8%;
   padding: 2px 2px 2px 2px;
   margin: 4px 0px 0px 6px;
 }

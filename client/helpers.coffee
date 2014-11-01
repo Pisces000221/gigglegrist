@@ -19,6 +19,8 @@ Template.registerHelper 'has_avatar_edit', -> @avatar isnt '' and not Session.ge
 Template.registerHelper 'hash_colour', -> '#' + window.hex_colour @colour
 Template.registerHelper 'rgba_colour', (alpha) -> "rgba(#{@colour.r}, #{@colour.g}, #{@colour.b}, #{alpha})"
 
+Template.registerHelper 'auto_fit_bg', (c) -> if window.is_light_colour c then '#000' else '#fff'
+
 ######## 全局方法 ########
 # http://stackoverflow.com/q/3032721
 # 加载Javascript和样式表的方法
@@ -31,6 +33,10 @@ window.load_script = (script_url) ->
 window.hex2 = (n) ->
   s = n.toString(16)
   if s.length is 1 then '0' + s else s
+
+# 自行Google一下“判断RGB颜色亮度”之类的东西吧，这个是直接从jscolor里抠来的
+window.is_light_colour = (c) ->
+  0.213 * c.r + 0.715 * c.g + 0.072 * c.b > 0.5 * 255
 
 window.hex_colour = (c) -> window.hex2(c.r) + window.hex2(c.g) + window.hex2(c.b)
 

@@ -15,7 +15,7 @@
   <ul class='list-group'>
     {{#each my_masks}}
     <a href='{{pathFor "edit_mask" id=_id}}' class='list-group-item' style='{{colours}}'>
-      <img src='{{cur_avatar}}' style='width: 40px; height: 40px;' alt='' class='img-circle'>&nbsp;{{name}}
+      <img src='{{cur_avatar}}' style='width: 40px; height: 40px;' alt='' class='img-circle'><span style='color: {{auto_fit_bg colour}}'>&nbsp;{{name}}</span>
       {{#if is_selected}}
       <span style='float: right'><i class='fa fa-check fa-2x'></i></span>
       {{else}}
