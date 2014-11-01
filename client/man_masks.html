@@ -3,9 +3,9 @@
   <div class='row'>
     <div class='col-lg-6'>
       <div class='input-group'>
-        <input id='txt_mask_name' type='text' class='form-control' placeholder='添加一个马甲 (已有2个，最多拥有5个)'>
+        <input id='txt_mask_name' type='text' class='form-control' placeholder='添加一个马甲 ({{mask_owning_state}})'>
         <span class='input-group-btn'>
-          <button id='btn_create_mask' class='btn btn-default' type='button'><i class='fa fa-plus'></i></button>
+          <a id='btn_create_mask' class='btn btn-default {{maybe_disabled}}'><i class='fa fa-plus'></i></a>
         </span>
       </div>
     </div>

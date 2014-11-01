@@ -62,6 +62,8 @@ Meteor.methods
       throw new Meteor.Error 403, '搞笑！没登录怎么创建马甲！'
     if Masks.findOne(name: name)?
       throw new Meteor.Error 403, '真不敢相信……你要的名字居然已经被用掉了……'
+    if Meteor.user().profile.masks.length >= GM_level Meteor.user().profile.chattypt
+      throw new Meteor.Error 403, '马甲数量超过限额！去讲讲话积攒一点话唠点数再来吧～'
     avatar ?= ''
     check avatar, String
     id = Random.id()

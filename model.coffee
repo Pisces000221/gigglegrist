@@ -48,3 +48,4 @@ GM.level = (pt) ->
     lv++
     up_pt += GM.level_up_pt lv
   lv
+`GM_level = GM.level`
