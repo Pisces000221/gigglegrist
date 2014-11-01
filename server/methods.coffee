@@ -98,6 +98,10 @@ Meteor.methods
       if rooms.indexOf m.room is -1 then rooms.push m.room
     if mask.name isnt name
       Meteor.call 'broadcast', rooms, "[#{mask.name}] 把名字改为了 [#{name}]"
+    if mask.colour isnt colour
+      Meteor.call 'broadcast', rooms, "[#{mask.name}] 更换了主题色"
+    if modifier.$set.avatar?
+      Meteor.call 'broadcast', rooms, "[#{mask.name}] 更换了头像"
     Masks.update id, modifier
   'use_mask': (id) ->
     if not @userId?
