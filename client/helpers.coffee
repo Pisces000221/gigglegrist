@@ -34,6 +34,11 @@ window.load_script = (script_url) ->
   script_tag.src = script_url
   document.head.appendChild script_tag
 
+# 把页面滚动到底部
+# http://stackoverflow.com/q/11715646/
+# 加一个54是由于body的margin-bottom是54（见global.css），懒得用API获取了～
+window.scroll_to_bottom = -> window.scrollTo 0, document.body.scrollHeight + 54
+
 window.hex2 = (n) ->
   s = n.toString(16)
   if s.length is 1 then '0' + s else s

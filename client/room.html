@@ -2,7 +2,10 @@
   {{#each room_messages}}
   <div class='message_splitter'></div>
   {{#if is_broadcast}}
-  <div class='broadcast-container'>{{message}}</div>
+  <div class='broadcast-container'>
+    {{message}}
+    <span class='speaker_name_disp' style='float: right'>{{readable_time timestamp}}</span>
+  </div>
   {{else}}
   <div class='message-container'>
     <img src='{{speaker_avatar}}' style='width: 24px; height: 24px;' alt='' class='img-circle'>
