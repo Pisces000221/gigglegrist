@@ -36,6 +36,11 @@ GM.use_mask = (args...) ->
 
 GM.level_up_pt = (lv) -> 10 + lv * 5
 
+GM.level_total_pt = (lv) ->
+  r = 0
+  r += GM.level_up_pt lv-- while lv > 0
+  r
+
 GM.level = (pt) ->
   lv = 0
   up_pt = 0

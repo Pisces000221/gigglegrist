@@ -108,3 +108,12 @@ body {
   float: right;
   text-align: right;
 }
+
+/* https://github.com/WebKit/webkit/blob/master/LayoutTests/css3/flexbox/intrinsic-min-width-applies-with-fixed-width.html */
+.max-content {
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: -ie-max-content;
+  min-width: -o-max-content;
+  min-width: max-content;
+}

@@ -56,7 +56,7 @@ Meteor.methods
     @userId = user_id
     mask_id = Meteor.call 'create_mask', options.username, options.avatar
     @userId = null
-    Meteor.users.update user_id, $set: { 'profile.enrolled': true, 'profile.last_mask': mask_id }
+    Meteor.users.update user_id, $set: { 'profile.enrolled': true, 'profile.last_mask': mask_id, 'profile.chattypt': 0 }
   'create_mask': (name, avatar) ->
     if not @userId?
       throw new Meteor.Error 403, '搞笑！没登录怎么创建马甲！'
@@ -129,6 +129,8 @@ Meteor.methods
     if Rooms.find(room).count() is 0
       throw new Meteor.Error 403, '木有这个房间'
     id = (Messages.find().count() + 1).toString()
+    # 获取一个话唠点数
+    Meteor.users.update @userId, $inc: 'profile.chattypt': 1
     mask = Masks.findOne Meteor.user().profile.last_mask,
       fields: { _id: 1, name: 1, avatar: 1, colour: 1 }
     Messages.insert

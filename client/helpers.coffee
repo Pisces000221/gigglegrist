@@ -13,6 +13,8 @@ Template.registerHelper 'current_username', -> Meteor.user().emails[0].address
 Template.registerHelper 'current_maskname', -> GM.masks.findOne(Meteor.user().profile.last_mask).name
 Template.registerHelper 'logged_in', -> Session.get 'logged_in'
 
+Template.registerHelper 'my_level', -> GM.level Meteor.user().profile.chattypt
+
 Template.registerHelper 'my_masks', -> GM.masks.find _id: $in: Meteor.user().profile.masks
 Template.registerHelper 'avatar', (x) -> window.avatar x
 Template.registerHelper 'cur_avatar', -> window.avatar this
