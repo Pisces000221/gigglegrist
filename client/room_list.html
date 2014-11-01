@@ -1,4 +1,12 @@
 <template name='room_list'>
+  <div class='input-group'>
+    <input id='txt_room_name' type='text' class='form-control' placeholder='小组标题'>
+    <span class='input-group-btn'>
+      <button id='btn_create_room' class='btn btn-default' type='button'><i class='fa fa-plus'></i></button>
+    </span>
+  </div>
+  <span style='color: red'>{{message}}</span>
+  <br>
   <ul class='list-group'>
     {{#each all_rooms}}
     <a href='{{pathFor "room" id=_id}}' class='list-group-item'>{{title}}</a>

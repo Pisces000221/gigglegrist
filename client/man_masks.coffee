@@ -4,8 +4,7 @@ Template.man_masks.events
   'click #btn_create_mask': ->
     GM.create_mask document.getElementById('txt_mask_name').value, (err, result) ->
       if err then Session.set 'man_masks_msg', err.toString()
-      else Session.set 'man_masks_msg', ''
-      document.getElementById('txt_mask_name').value = ''
+      else Session.set 'man_masks_msg', ''; document.getElementById('txt_mask_name').value = ''
   'click .btn_use_mask': -> GM.use_mask @_id
 
 Template.man_masks.helpers

@@ -114,7 +114,7 @@ Meteor.methods
       throw new Meteor.Error 403, '貌似你还没登录……'
     check options,
       title: NonEmptyString
-      description: NonEmptyString
+      description: String
     options.id ?= Random.id()
     Rooms.insert
       _id: options.id
