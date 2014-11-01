@@ -3,24 +3,21 @@
   <hr class='message_splitter'>
   <div class='message-container'>
     <img src='{{speaker_avatar}}' style='width: 24px; height: 24px;' alt='' class='img-circle'>
-    <span class='speaker_name_disp'>{{speaker_name}}</span>
+    <span class='speaker_name_disp'>
+      {{speaker_name}}
+      <span style='float: right'>#{{_id}}</span>
+    </span>
     <div class='message-border' style='background-color: {{speaker_colour_fade}}'>
       <span style='color: {{speaker_colour}}'>{{message}}</span><br>
     </div>
   </div>
   {{/each}}
-  <nav class='navbar navbar-default navbar-fixed-bottom' role='navigation'>
-    <div class='container'>
-      <div class='row'>
-        <div class='col-lg-6'>
-          <div class='input-group'>
-            <input id='txt_message' type='text' class='form-control'>
-            <span class='input-group-btn'>
-              <button id='btn_send' class='btn btn-success' type='button'>发送</button>
-            </span>
-          </div>
-        </div>
-      </div>
+  <nav class='navbar navbar-default navbar-fixed-bottom'>
+    <div class='input-group message-send'>
+      <input id='txt_message' type='text' class='form-control'>
+      <span class='input-group-btn'>
+        <button id='btn_send' class='btn btn-success' type='button'>发送</button>
+      </span>
     </div>
   </nav>
 </template>

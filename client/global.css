@@ -78,3 +78,7 @@ body {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+.input-group.message-send {
+  padding: 7px 6px 0px 6px;
+}
