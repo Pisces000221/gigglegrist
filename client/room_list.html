@@ -9,7 +9,10 @@
   <br>
   <ul class='list-group'>
     {{#each all_rooms}}
-    <a href='{{pathFor "room" id=_id}}' class='list-group-item'>{{title}}</a>
+    <a href='{{pathFor "room" id=_id}}' class='list-group-item'>
+      <h3>{{title}}</h3>
+      <p>{{description}}</p>
+    </a>
     {{/each}}
   </ul>
 </template>

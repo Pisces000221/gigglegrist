@@ -126,8 +126,12 @@ Meteor.methods
       _id: options.id
       title: options.title
       description: options.description
-      creator: options.creator
+      creator: @userId
       timestamp: (new Date).getTime()
+  'modify_room': (id, name, description) ->
+    if not @userId? or @userId isnt Rooms.findOne(id).creator
+      throw new Meteor.Error 403, '看错了吧？这是别人的玩意～～'
+    Rooms.update id, $set: { name: name, description: description}
   'speak': (room, message) ->
     if not @userId?
       throw new Meteor.Error 403, '你忘登录了！'

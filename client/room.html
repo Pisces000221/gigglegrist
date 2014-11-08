@@ -19,6 +19,7 @@
   </div>
   {{/if}}
   {{/each}}
+  <a href='{{pathFor "edit_room" id=_id}}' class='btn btn-info' style='position: fixed; top: 50px; right: 0px'><i class='fa fa-pencil'></i>&nbsp;<small>小组管理员</small></a>
   <nav class='navbar navbar-default navbar-fixed-bottom'>
     <div class='input-group message-send'>
       <input id='txt_message' type='text' class='form-control'>

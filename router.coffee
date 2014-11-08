@@ -23,3 +23,8 @@ Router.map ->
     data: -> GM.rooms.findOne @params.id
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
+  @route 'edit_room',
+    path: '/edit_room/:id'
+    data: -> GM.rooms.findOne @params.id
+    layoutTemplate: 'layout'
+    yieldTemplates: 'header': to: 'top'

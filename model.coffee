@@ -28,6 +28,9 @@ GM.modify_mask = (args...) ->
 GM.create_room = (args...) ->
   Meteor.call 'create_room', args...
 
+GM.modify_room = (args...) ->
+  Meteor.call 'modify_room', args...
+
 GM.speak = (args...) ->
   Meteor.call 'speak', args...
 
