@@ -13,3 +13,4 @@ Template.room_list.events
 Template.room_list.helpers
   'message': -> Session.get 'room_list_msg'
   'all_rooms': -> GM.rooms.find()
+  'creator_name': -> GM.masks.findOne(@creator).name

@@ -1,5 +1,5 @@
 Template.edit_room.helpers
-  'created_by_me': -> @creator is Meteor.userId()
+  'created_by_me': -> Meteor.user().profile.masks.indexOf(@creator) isnt -1
 
 Template.edit_room.events
   'click #btn_submit': ->

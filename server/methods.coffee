@@ -126,7 +126,7 @@ Meteor.methods
       _id: options.id
       title: options.title
       description: options.description
-      creator: @userId
+      creator: Meteor.user().profile.last_mask
       timestamp: (new Date).getTime()
   'modify_room': (id, name, description) ->
     if not @userId? or @userId isnt Rooms.findOne(id).creator

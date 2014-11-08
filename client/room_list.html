@@ -11,6 +11,7 @@
     {{#each all_rooms}}
     <a href='{{pathFor "room" id=_id}}' class='list-group-item'>
       <h3>{{title}}</h3>
+      <span style='color: #999'>由 {{creator_name}} 创建</span>
       <p>{{description}}</p>
     </a>
     {{/each}}
