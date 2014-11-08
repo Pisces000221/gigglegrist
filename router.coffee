@@ -6,8 +6,8 @@ Router.map ->
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
   @route 'enrollment',
-    path: '/enroll/:user_id'
-    data: -> @params.user_id
+    path: '/enroll/:user_id/:token'
+    data: -> user_id: @params.user_id.trim(), token: @params.token.trim()
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
   @route 'man_masks',

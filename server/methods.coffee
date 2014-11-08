@@ -25,7 +25,13 @@ GM.hexToRgb = (hex) ->
   else null
 
 GM.enrollmentEmailContent = (user_id) ->
-  Meteor.absoluteUrl "enroll/#{user_id}"
+  token = Random.secret()
+  token_record =
+    token: token
+    email: Meteor.users.findOne(user_id).emails[0].address
+    when: new Date()
+  Meteor.users.update user_id, $set: 'services.password.reset': token_record
+  Meteor.absoluteUrl "enroll/#{user_id}/#{token}"
 
 GM.sendEnrollmentEmail = (user_id) ->
   user = Meteor.users.findOne user_id
@@ -48,10 +54,7 @@ Meteor.methods
     options.avatar ?= ''
     check options,
       username: NonEmptyString
-      # TODO: 使用HTTPS或者更安全的办法传输这个信息（HTTP下直接传输密码太吓人了）
-      password: NonEmptyString
       avatar: String
-    Accounts.setPassword user_id, options.password
     # 创建第一个马甲
     @userId = user_id
     mask_id = Meteor.call 'create_mask', options.username, options.avatar
@@ -62,7 +65,8 @@ Meteor.methods
       throw new Meteor.Error 403, '搞笑！没登录怎么创建马甲！'
     if Masks.findOne(name: name)?
       throw new Meteor.Error 403, '真不敢相信……你要的名字居然已经被用掉了……'
-    if Meteor.user().profile.masks.length >= GM_level Meteor.user().profile.chattypt
+    user = Meteor.user()
+    if user.profile? and user.profile.masks.length >= GM_level user.profile.chattypt
       throw new Meteor.Error 403, '马甲数量超过限额！去讲讲话积攒一点话唠点数再来吧～'
     avatar ?= ''
     check avatar, String

@@ -3,11 +3,11 @@ Session.setDefault 'enroll_msg', ''
 Session.setDefault 'enroll_in_progress', false
 
 Template.enrollment.helpers
-  'email': -> Meteor.users.findOne(this.trim()).emails[0].address
+  'email': -> Meteor.users.findOne(@user_id).emails[0].address
   'message': -> Session.get 'enroll_msg'
   'in_progress': -> Session.get 'enroll_in_progress'
-  'not_enrolled': -> not Meteor.users.findOne(this.trim()).profile?.enrolled
-  'neither_found_nor_exist': -> not Meteor.users.findOne(this.trim())?
+  'not_enrolled': -> not Meteor.users.findOne(@user_id).profile?.enrolled
+  'neither_found_nor_exist': -> not Meteor.users.findOne(@user_id)?
 
 Template.enrollment.events
   'click #btn_submit': ->
@@ -17,7 +17,6 @@ Template.enrollment.events
     # http://blog.teamtreehouse.com/reading-files-using-the-html5-filereader-api
     file = document.getElementById('file_avatar').files[0]
     reader = new FileReader()
-    current_id = this.trim()
 
     username = document.getElementById('txt_username').value
     password = document.getElementById('txt_password').value
@@ -31,16 +30,16 @@ Template.enrollment.events
       Session.set 'enroll_in_progress', false
       return
 
+    params = this
     reader.onloadend = ->
       # 文件加载完成（或者根本没有加载），准备出发
-      GM.enroll current_id, {
+      GM.enroll params.user_id, {
         username: username
-        password: password
         avatar: reader.result
       }, (err, result) ->
         if err then Session.set 'enroll_msg', "出了点问题…… #{err.toString()}"
         else
-          Meteor.loginWithPassword id: current_id, password
+          Accounts.resetPassword params.token, password
           Router.go '/'
         Session.set 'enroll_in_progress', false
 
