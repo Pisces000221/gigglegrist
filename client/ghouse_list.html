@@ -7,6 +7,7 @@
   </div>
   <span style='color: red'>{{message}}</span>
   <br>
+  {{#if load_finished}}
   <ul class='list-group'>
     {{#each all_ghouses}}
     <a href='{{pathFor "ghouse" id=_id}}' class='list-group-item'>
@@ -16,4 +17,7 @@
     </a>
     {{/each}}
   </ul>
+  {{else}}
+  <i class='fa fa-spinner fa-spin'></i>&nbsp;努力加载中…………
+  {{/if}}
 </template>

@@ -13,4 +13,5 @@ Template.ghouse_list.events
 Template.ghouse_list.helpers
   'message': -> Session.get 'ghouse_list_msg'
   'all_ghouses': -> GM.ghouses.find()
+  'load_finished': -> GM.ghouses.find().count() > 0
   'creator_name': -> GM.masks.findOne(@creator).name
