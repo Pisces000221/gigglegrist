@@ -99,15 +99,15 @@ Meteor.methods
     else if avatar isnt '' then modifier.$set.avatar = Avatars.insert img: avatar
     # 先发送广播
     mask = Masks.findOne id
-    rooms = []
+    ghouses = []
     Messages.find('speaker.name': mask.name).forEach (m) ->
-      if rooms.indexOf m.room is -1 then rooms.push m.room
+      if ghouses.indexOf m.ghouse is -1 then ghouses.push m.ghouse
     if mask.name isnt name
-      Meteor.call 'broadcast', rooms, "[#{mask.name}] 把名字改为了 [#{name}]"
+      Meteor.call 'broadcast', ghouses, "[#{mask.name}] 把名字改为了 [#{name}]"
     if mask.colour isnt colour
-      Meteor.call 'broadcast', rooms, "[#{mask.name}] 更换了主题色"
+      Meteor.call 'broadcast', ghouses, "[#{mask.name}] 更换了主题色"
     if modifier.$set.avatar?
-      Meteor.call 'broadcast', rooms, "[#{mask.name}] 更换了头像"
+      Meteor.call 'broadcast', ghouses, "[#{mask.name}] 更换了头像"
     Masks.update id, modifier
   'use_mask': (id) ->
     if not @userId?
@@ -115,28 +115,28 @@ Meteor.methods
     if Meteor.user().profile.masks.indexOf(id) is -1
       throw new Meteor.Error 403, '喂喂，不要乱动别人的东西哈'
     Meteor.users.update @userId, $set: 'profile.last_mask': id
-  'create_room': (options) ->
+  'create_ghouse': (options) ->
     if not @userId?
       throw new Meteor.Error 403, '貌似你还没登录……'
     check options,
       title: NonEmptyString
       description: String
     options.id ?= Random.id()
-    Rooms.insert
+    Greenhouses.insert
       _id: options.id
       title: options.title
       description: options.description
       creator: Meteor.user().profile.last_mask
       timestamp: (new Date).getTime()
-  'modify_room': (id, name, description) ->
-    if not @userId? or @userId isnt Rooms.findOne(id).creator
+  'modify_ghouse': (id, name, description) ->
+    if not @userId? or @userId isnt Greenhouses.findOne(id).creator
       throw new Meteor.Error 403, '看错了吧？这是别人的玩意～～'
-    Rooms.update id, $set: { name: name, description: description}
-  'speak': (room, message) ->
+    Greenhouses.update id, $set: { name: name, description: description}
+  'speak': (ghouse, message) ->
     if not @userId?
       throw new Meteor.Error 403, '你忘登录了！'
     check message, NonEmptyString
-    if Rooms.find(room).count() is 0
+    if Greenhouses.find(ghouse).count() is 0
       throw new Meteor.Error 403, '木有这个房间'
     id = (Messages.find().count() + 1).toString()
     # 获取一个话唠点数
@@ -145,19 +145,19 @@ Meteor.methods
       fields: { _id: 1, name: 1, avatar: 1, colour: 1 }
     Messages.insert
       _id: id
-      room: room
+      ghouse: ghouse
       speaker: mask
       message: message
       timestamp: (new Date).getTime()
   # TODO: 把这个保留在服务器内部，不能错客户端调用
-  'broadcast': (rooms, message) ->
+  'broadcast': (ghouses, message) ->
     timestamp = (new Date).getTime()
     (Messages.insert
       _id: (Messages.find().count() + 1).toString()
-      room: room
+      ghouse: ghouse
       speaker: 'broadcast'
       message: message
-      timestamp: timestamp) for room in rooms
+      timestamp: timestamp) for ghouse in Greenhouses
 
 Meteor.startup ->
   # 防止在Firefox内无法显示某些东东

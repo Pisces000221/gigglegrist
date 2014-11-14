@@ -1,5 +1,5 @@
-<template name='room'>
-  {{#each room_messages}}
+<template name='ghouse'>
+  {{#each ghouse_messages}}
   <div class='message_splitter'></div>
   {{#if is_broadcast}}
   <div class='broadcast-container'>
@@ -20,7 +20,7 @@
   {{/if}}
   {{/each}}
   {{#if created_by_me}}
-  <a href='{{pathFor "edit_room" id=_id}}' class='btn btn-info' style='position: fixed; top: 50px; right: 0px'><i class='fa fa-pencil'></i>&nbsp;<small>小组管理员</small></a>
+  <a href='{{pathFor "edit_ghouse" id=_id}}' class='btn btn-info' style='position: fixed; top: 50px; right: 0px'><i class='fa fa-pencil'></i>&nbsp;<small>温室管理员</small></a>
   {{/if}}
   <nav class='navbar navbar-default navbar-fixed-bottom'>
     <div class='input-group message-send'>

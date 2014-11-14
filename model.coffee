@@ -3,12 +3,12 @@
 
 `
 GM = {};
-Rooms = new Meteor.Collection('rooms');
+Greenhouses = new Meteor.Collection('ghouses');
 Masks = new Meteor.Collection('masks');
 Messages = new Meteor.Collection('messages');
 Avatars = new Meteor.Collection('avatars');
 `
-GM.rooms = Rooms
+GM.ghouses = Greenhouses
 GM.masks = Masks
 GM.messages = Messages
 GM.avatars = Avatars
@@ -25,11 +25,11 @@ GM.create_mask = (args...) ->
 GM.modify_mask = (args...) ->
   Meteor.call 'modify_mask', args...
 
-GM.create_room = (args...) ->
-  Meteor.call 'create_room', args...
+GM.create_ghouse = (args...) ->
+  Meteor.call 'create_ghouse', args...
 
-GM.modify_room = (args...) ->
-  Meteor.call 'modify_room', args...
+GM.modify_ghouse = (args...) ->
+  Meteor.call 'modify_ghouse', args...
 
 GM.speak = (args...) ->
   Meteor.call 'speak', args...

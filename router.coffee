@@ -18,13 +18,13 @@ Router.map ->
     data: -> GM.masks.findOne @params.id
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
-  @route 'room',
-    path: '/room/:id'
-    data: -> GM.rooms.findOne @params.id
+  @route 'ghouse',
+    path: '/ghouse/:id'
+    data: -> GM.ghouses.findOne @params.id
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
-  @route 'edit_room',
-    path: '/edit_room/:id'
-    data: -> GM.rooms.findOne @params.id
+  @route 'edit_ghouse',
+    path: '/edit_ghouse/:id'
+    data: -> GM.ghouses.findOne @params.id
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'

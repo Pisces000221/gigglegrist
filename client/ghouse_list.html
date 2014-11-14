@@ -1,15 +1,15 @@
-<template name='room_list'>
+<template name='ghouse_list'>
   <div class='input-group'>
-    <input id='txt_room_name' type='text' class='form-control' placeholder='小组标题'>
+    <input id='txt_ghouse_name' type='text' class='form-control' placeholder='温室名'>
     <span class='input-group-btn'>
-      <button id='btn_create_room' class='btn btn-default' type='button'><i class='fa fa-plus'></i></button>
+      <button id='btn_create_ghouse' class='btn btn-default' type='button'><i class='fa fa-plus'></i></button>
     </span>
   </div>
   <span style='color: red'>{{message}}</span>
   <br>
   <ul class='list-group'>
-    {{#each all_rooms}}
-    <a href='{{pathFor "room" id=_id}}' class='list-group-item'>
+    {{#each all_ghouses}}
+    <a href='{{pathFor "ghouse" id=_id}}' class='list-group-item'>
       <h3>{{title}}</h3>
       <span style='color: #999'>由 {{creator_name}} 创建</span>
       <p>{{description}}</p>
