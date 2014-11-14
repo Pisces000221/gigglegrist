@@ -8,6 +8,8 @@ Template.ghouse.events
     if msg is '' then return
     document.getElementById('txt_message').value = ''
     GM.speak @_id, msg, -> window.scroll_to_bottom()
+  'keydown #txt_message': (e) ->
+    document.getElementById('btn_send').click() if e.keyCode is 13
 
 Template.ghouse.helpers
   'ghouse_messages': -> GM.messages.find ghouse: @_id
