@@ -101,10 +101,11 @@ Meteor.methods
     mask = Masks.findOne id
     ghouses = []
     Messages.find('speaker.name': mask.name).forEach (m) ->
-      if ghouses.indexOf m.ghouse is -1 then ghouses.push m.ghouse
+      if ghouses.indexOf(m.ghouse) is -1 then ghouses.push m.ghouse
+    console.log '广播已发送：', ghouses
     if mask.name isnt name
       Meteor.call 'broadcast', ghouses, "[#{mask.name}] 把名字改为了 [#{name}]"
-    if mask.colour isnt colour
+    if mask.colour.r isnt colour.r or mask.colour.g isnt colour.g or mask.colour.b isnt colour.b
       Meteor.call 'broadcast', ghouses, "[#{mask.name}] 更换了主题色"
     if modifier.$set.avatar?
       Meteor.call 'broadcast', ghouses, "[#{mask.name}] 更换了头像"
@@ -157,7 +158,7 @@ Meteor.methods
       ghouse: ghouse
       speaker: 'broadcast'
       message: message
-      timestamp: timestamp) for ghouse in Greenhouses
+      timestamp: timestamp) for ghouse in ghouses
 
 Meteor.startup ->
   # 防止在Firefox内无法显示某些东东
