@@ -129,9 +129,9 @@ Meteor.methods
       creator: Meteor.user().profile.last_mask
       timestamp: (new Date).getTime()
   'modify_ghouse': (id, name, description) ->
-    if not @userId? or @userId isnt Greenhouses.findOne(id).creator
+    if not @userId? or Masks.findOne(Meteor.user().profile.last_mask)._id isnt Greenhouses.findOne(id).creator
       throw new Meteor.Error 403, '看错了吧？这是别人的玩意～～'
-    Greenhouses.update id, $set: { name: name, description: description}
+    Greenhouses.update id, $set: { name: name, description: description }
   'speak': (ghouse, message) ->
     if not @userId?
       throw new Meteor.Error 403, '你忘登录了！'
