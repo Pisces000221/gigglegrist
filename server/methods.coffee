@@ -66,7 +66,7 @@ Meteor.methods
     if Masks.findOne(name: name)?
       throw new Meteor.Error 403, '真不敢相信……你要的名字居然已经被用掉了……'
     user = Meteor.user()
-    if user.profile? and user.profile.masks.length >= GM_level user.profile.chattypt
+    if user.profile? and Masks.find({ _id: { $in: user.profile.masks }, is_random: false }).count() >= GM_level user.profile.chattypt
       throw new Meteor.Error 403, '马甲数量超过限额！去讲讲话积攒一点话唠点数再来吧～'
     avatar ?= ''
     check avatar, String
@@ -76,6 +76,7 @@ Meteor.methods
       name: name
       avatar: if avatar is '' then '' else Avatars.insert img: avatar
       colour: GM.hexToRgb Please.make_color()
+      is_random: false
       timestamp: (new Date).getTime()
     console.log "第#{Masks.find().count()}个马甲被创建"
     Meteor.users.update @userId, $addToSet: 'profile.masks': id
@@ -141,7 +142,7 @@ Meteor.methods
       throw new Meteor.Error 403, '木有这个房间'
     id = (Messages.find().count() + 1).toString()
     # 获取一个话唠点数
-    Meteor.users.update @userId, $inc: 'profile.chattypt': 1
+    Meteor.call 'get_chattypt', 1
     mask = Masks.findOne Meteor.user().profile.last_mask,
       fields: { _id: 1, name: 1, avatar: 1, colour: 1 }
     Messages.insert
@@ -159,6 +160,30 @@ Meteor.methods
       speaker: 'broadcast'
       message: message
       timestamp: timestamp) for ghouse in ghouses
+  'get_chattypt': (num) ->
+    Meteor.users.update @userId, $inc: 'profile.chattypt': num
+    Meteor.call 'update_random_masks'
+  'update_random_masks': ->
+    user = Meteor.user()
+    level = GM_level user.profile.chattypt
+    random_ct = Masks.find({ _id: { $in: user.profile.masks }, is_random: true }).count()
+    console.log random_ct
+    while random_ct < level
+      random_ct++
+      id = Random.id()
+      name = Meteor.call 'random_name'
+      colour = GM.hexToRgb Please.make_color()
+      Masks.insert
+        _id: id
+        name: name
+        avatar: ''
+        colour: colour
+        is_random: true
+        timestamp: (new Date).getTime()
+      console.log "创建随机马甲 #{id} #{name} #{colour.r},#{colour.g},#{colour.b}"
+      Meteor.users.update @userId, $addToSet: 'profile.masks': id
+    return
+  'random_name': -> '啊' + Random.id() + '随便'
 
 Meteor.startup ->
   # 防止在Firefox内无法显示某些东东

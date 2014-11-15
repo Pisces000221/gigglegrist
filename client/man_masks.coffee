@@ -13,10 +13,11 @@ Template.man_masks.helpers
     alpha = if Meteor.user().profile.last_mask isnt @_id then 0.35 else 1.0
     "color: #000; background-color: rgba(#{@colour.r}, #{@colour.g}, #{@colour.b}, #{alpha})"
   'is_selected': -> Meteor.user().profile.last_mask is @_id
-  'maybe_disabled': -> 'disabled' if Meteor.user().profile.masks.length >= GM.level Meteor.user().profile.chattypt
+  'maybe_disabled': -> 'disabled' if GM.masks.find({ _id: { $in: Meteor.user().profile.masks }, is_random: false }).count() >= GM.level Meteor.user().profile.chattypt
 
   'mask_owning_state': ->
-    "已有#{Meteor.user().profile.masks.length}个，最多拥有#{GM.level Meteor.user().profile.chattypt}个"
+    user_profile = Meteor.user().profile
+    "已有#{GM.masks.find({ _id: { $in: user_profile.masks }, is_random: false }).count()}个，最多拥有#{GM.level user_profile.chattypt}个"
   'level_progbar': ->
     cur_pt = Meteor.user().profile.chattypt
     cur_lv = GM.level cur_pt

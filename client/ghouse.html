@@ -10,6 +10,7 @@
   <div class='message-container'>
     <img src='{{speaker_avatar}}' style='width: 24px; height: 24px;' alt='' class='img-circle'>
     <span class='speaker_name_disp'>
+      {{#if speaker_is_random}}<i class='fa fa-random random-highlight'></i>{{/if}}
       {{speaker_name}}
       <span style='float: right; text-align: right'><b>#{{_id}}</b><br>{{readable_time timestamp}}</span>
     </span>

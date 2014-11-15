@@ -144,3 +144,7 @@ hr.hr-navbar {
   min-width: -o-max-content;
   min-width: max-content;
 }
+
+.random-highlight {
+  color: #338833;
+}

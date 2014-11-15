@@ -16,6 +16,11 @@ Template.ghouse.helpers
   'is_broadcast': -> @speaker is 'broadcast'
   'speaker_colour': -> window.rgba_colour @speaker.colour, 1
   'speaker_colour_fade': -> window.rgba_colour @speaker.colour, 0.2
+  'speaker_is_random': ->
+    #@speaker.is_random
+    #if @speaker.name is '啊k27XRNbiPgA7yzTJy随便'
+    #  console.log @speaker
+    GM.masks.findOne(@speaker._id).is_random
   'speaker_name': -> @speaker.name
   'speaker_avatar': -> window.avatar @speaker
   'created_by_me': -> Meteor.user().profile.masks.indexOf(@creator) isnt -1
