@@ -1,4 +1,5 @@
 <template name='ghouse'>
+  {{#if logged_in}}
   {{#each ghouse_messages}}
   <div class='message_splitter'></div>
   {{#if is_broadcast}}
@@ -10,8 +11,11 @@
   <div class='message-container'>
     <img src='{{speaker_avatar}}' style='width: 24px; height: 24px;' alt='' class='img-circle'>
     <span class='speaker_name_disp'>
-      {{#if speaker_is_random}}<i class='fa fa-random random-highlight'></i>{{/if}}
-      {{speaker_name}}
+      {{#if speaker_is_random}}
+        <i class='fa fa-random random-highlight'></i>&nbsp;<span class='random-highlight'>{{speaker_name}}</span>
+      {{else}}
+        {{speaker_name}}
+      {{/if}}
       <span style='float: right; text-align: right'><b>#{{_id}}</b><br>{{readable_time timestamp}}</span>
     </span>
     <div class='message-border' style='background-color: {{speaker_colour_fade}}'>
@@ -31,4 +35,7 @@
       </span>
     </div>
   </nav>
+  {{else}}
+  {{go_homepage}}
+  {{/if}}
 </template>
