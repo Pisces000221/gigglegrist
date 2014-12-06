@@ -195,6 +195,22 @@ Meteor.methods
       Meteor.users.update @userId, $addToSet: 'profile.grists': id
     return
   'random_name': -> GM.rand_species()
+  'create_admin': (pass) ->
+    if Meteor.users.find('profile.admin': true).count() is 0
+      console.log '管理员账户：' + Accounts.createUser username: 'admin', email: 'admin', password: pass, profile: admin: true
+  'shuffle_random_grists':  ->
+    if not @userId or not Meteor.user().profile.admin?
+      throw new Meteor.Error 403, '快去叫管理员～～'
+    Grists.update { is_random: true }, { $set: name: '' }
+    Grists.find(is_random: true).forEach (e) ->
+      name = Meteor.call 'random_name'
+      name = Meteor.call 'random_name' while Grists.find(name: name).count() isnt 0
+      colour = GM.hexToRgb Please.make_color()
+      console.log "重发随机Grist #{e._id} #{name} #{colour.r},#{colour.g},#{colour.b}"
+      Grists.update e._id, $set: { name: name, colour: colour }
+    ghouses = []
+    Greenhouses.find().forEach (g) -> ghouses.push g._id
+    Meteor.call 'broadcast', ghouses, '随机Grist名称重发'
 
 Meteor.startup ->
   # 防止在Firefox内无法显示某些东东
