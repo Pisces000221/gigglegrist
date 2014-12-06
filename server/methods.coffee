@@ -101,7 +101,7 @@ Meteor.methods
     # 先发送广播
     grist = Grists.findOne id
     ghouses = []
-    Messages.find('speaker.name': grist.name).forEach (m) ->
+    Messages.find('speaker._id': grist._id).forEach (m) ->
       if ghouses.indexOf(m.ghouse) is -1 then ghouses.push m.ghouse
     console.log '广播已发送：', ghouses
     if grist.name isnt name
