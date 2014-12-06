@@ -14,6 +14,18 @@ ColourRGB = Match.Where (x) ->
 
 GM = {}
 
+# 使用如下方法获得物种信息：
+# 访问 http://species.wikimedia.org/w/api.php?action=query&format=json&continue=&list=allpages&apprefix=属&aplimit=500
+# 打开Web Console，运行：
+#  a = 把页面上的所有东东粘贴到这里
+#  b = []
+#  a.query.allpages.forEach(function(e) { b.push(e.title) })
+#  b.toSource()
+GM.initial_species = ["Eleocharis acicularis", "Eleocharis acutangula", "Eleocharis afflata", "Eleocharis angustispicula", "Eleocharis atropurpurea", "Eleocharis baldwinii", "Eleocharis brittonii", "Eleocharis congesta", "Eleocharis cryptica", "Eleocharis densicaespitosa", "Eleocharis dulcis", "Eleocharis elegans", "Eleocharis filiculmis", "Eleocharis geniculata", "Eleocharis glauco-virens", "Eleocharis hatschbachii", "Eleocharis kuroguwai", "Eleocharis loefgreniana", "Eleocharis macrostachya", "Eleocharis montana", "Eleocharis montevidensis", "Eleocharis nitida", "Eleocharis nodulosa", "Eleocharis obtusa", "Eleocharis palustris", "Eleocharis parishii", "Eleocharis parvula", "Eleocharis pellucida", "Eleocharis quadrangulata", "Eleocharis radicans", "Eleocharis ramboana", "Eleocharis rostellata", "Eleocharis sellowiana", "Eleocharis tenuis", "Eleocharis tortilis", "Eleocharis urceolatoides", "Eleocharis wolfii", "Garcinia afzelii", "Garcinia amboinensis", "Garcinia aristata", "Garcinia atroviridis", "Garcinia bancana", "Garcinia benthamii", "Garcinia binucao", "Garcinia brasiliensis", "Garcinia buchananii", "Garcinia cambogia", "Garcinia celebica", "Garcinia cochinchinensis", "Garcinia cornea", "Garcinia cowa", "Garcinia cymosa", "Garcinia dioica", "Garcinia dives", "Garcinia dulcis", "Garcinia epunctata", "Garcinia floribunda", "Garcinia forbesii", "Garcinia fusca", "Garcinia gardneriana", "Garcinia gerrardii", "Garcinia gibbsiae", "Garcinia griffithii", "Garcinia gummi-gutta", "Garcinia hanburyi", "Garcinia hombroniana", "Garcinia humilis", "Garcinia indica", "Garcinia intermedia", "Garcinia kola", "Garcinia kydia", "Garcinia lateriflora", "Garcinia livingstonei", "Garcinia loureiroi", "Garcinia macrophylla", "Garcinia madruno", "Garcinia mangostana", "Garcinia mestonii", "Garcinia mooreana", "Garcinia morella", "Garcinia multiflora", "Garcinia nigrolineata", "Garcinia oblongifolia", "Garcinia parvifolia", "Garcinia pedunculata", "Garcinia picrorhiza", "Garcinia portoricensis", "Garcinia prainiana", "Garcinia sciura", "Garcinia spicata", "Garcinia stipulata", "Garcinia subelliptica", "Garcinia syzygiifolia", "Garcinia venulosa", "Garcinia vidalii", "Garcinia wightii", "Garcinia xanthochymus"]
+
+GM.rand_species = ->
+  GM.initial_species[Math.floor(Math.random() * GM.initial_species.length)]
+
 # http://stackoverflow.com/questions/5623838/
 GM.hexToRgb = (hex) ->
   result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec hex
@@ -167,7 +179,6 @@ Meteor.methods
     user = Meteor.user()
     level = GM_level user.profile.chattypt
     random_ct = Grists.find({ _id: { $in: user.profile.grists }, is_random: true }).count()
-    console.log random_ct
     while random_ct < level
       random_ct++
       id = Random.id()
@@ -183,7 +194,7 @@ Meteor.methods
       console.log "创建随机Grist #{id} #{name} #{colour.r},#{colour.g},#{colour.b}"
       Meteor.users.update @userId, $addToSet: 'profile.grists': id
     return
-  'random_name': -> '啊' + Random.id() + '随便'
+  'random_name': -> GM.rand_species()
 
 Meteor.startup ->
   # 防止在Firefox内无法显示某些东东
