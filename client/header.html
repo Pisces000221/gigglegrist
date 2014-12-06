@@ -13,14 +13,14 @@
           <span class='icon-bar'></span>
           <span class='icon-bar'></span>
         </button>
-        <a class='navbar-brand' href='{{pathFor "home_page"}}'><qs><b>MANGOSTANA</b></qs></a>
+        <a class='navbar-brand' href='{{pathFor "home_page"}}'><qs><b>GiggleGrist</b></qs></a>
         <hr class='hr-navbar'>
       </div>
       <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-5'>
         <p class='navbar-text navbar-right'>
           {{#if currentUser}}
           {{current_username}} / <a href='#' id='a_logout' class='navbar-link'>退出帐号</a><br>
-          马甲：<a href='{{pathFor "man_masks"}}' class='navbar-link'><b>{{current_maskname}}</b></a>
+          Grist：<a href='{{pathFor "man_grists"}}' class='navbar-link'><b>{{current_gristname}}</b></a>
           {{else}}
           <input id='txt_header_email' type='text' class='form-control' placeholder='E-mail'>
           <input id='txt_header_password' type='password' class='form-control' placeholder='密码' style='margin-top: 5px;'>

@@ -36,7 +36,7 @@ GM.enrollmentEmailContent = (user_id) ->
 GM.sendEnrollmentEmail = (user_id) ->
   user = Meteor.users.findOne user_id
   Email.send
-    from: '"Mangostana Team" <1786762946@qq.com>'
+    from: '"GiggleGrist Team" <1786762946@qq.com>'
     to: user.emails[0].address
     subject: 'Hi，我看到你了～～'
     html: GM.enrollmentEmailContent user_id
@@ -55,36 +55,36 @@ Meteor.methods
     check options,
       username: NonEmptyString
       avatar: String
-    # 创建第一个马甲
+    # 创建第一个Grist
     @userId = user_id
-    mask_id = Meteor.call 'create_mask', options.username, options.avatar
+    grist_id = Meteor.call 'create_grist', options.username, options.avatar
     @userId = null
-    Meteor.users.update user_id, $set: { 'profile.enrolled': true, 'profile.last_mask': mask_id, 'profile.chattypt': 0 }
-  'create_mask': (name, avatar) ->
+    Meteor.users.update user_id, $set: { 'profile.enrolled': true, 'profile.last_grist': grist_id, 'profile.chattypt': 0 }
+  'create_grist': (name, avatar) ->
     if not @userId?
-      throw new Meteor.Error 403, '搞笑！没登录怎么创建马甲！'
-    if Masks.findOne(name: name)?
+      throw new Meteor.Error 403, '搞笑！没登录怎么创建Grist！'
+    if Grists.findOne(name: name)?
       throw new Meteor.Error 403, '真不敢相信……你要的名字居然已经被用掉了……'
     user = Meteor.user()
-    if user.profile? and Masks.find({ _id: { $in: user.profile.masks }, is_random: false }).count() >= GM_level user.profile.chattypt
-      throw new Meteor.Error 403, '马甲数量超过限额！去讲讲话积攒一点话唠点数再来吧～'
+    if user.profile? and Grists.find({ _id: { $in: user.profile.grists }, is_random: false }).count() >= GM_level user.profile.chattypt
+      throw new Meteor.Error 403, 'Grist数量超过限额！去讲讲话积攒一点话唠点数再来吧～'
     avatar ?= ''
     check avatar, String
     id = Random.id()
-    Masks.insert
+    Grists.insert
       _id: id
       name: name
       avatar: if avatar is '' then '' else Avatars.insert img: avatar
       colour: GM.hexToRgb Please.make_color()
       is_random: false
       timestamp: (new Date).getTime()
-    console.log "第#{Masks.find().count()}个马甲被创建"
-    Meteor.users.update @userId, $addToSet: 'profile.masks': id
+    console.log "第#{Grists.find().count()}个Grist被创建"
+    Meteor.users.update @userId, $addToSet: 'profile.grists': id
     return id
-  'modify_mask': (id, name, colour, avatar) ->
+  'modify_grist': (id, name, colour, avatar) ->
     if not @userId?
       throw new Meteor.Error 403, '貌似没登录？？'
-    if Meteor.user().profile.masks.indexOf(id) is -1
+    if Meteor.user().profile.grists.indexOf(id) is -1
       throw new Meteor.Error 403, '喂喂，不要乱动别人的东西哈'
     if not name? or not colour? or not avatar?
       throw new Meteor.Error 403, '把参数给全好不……'
@@ -99,24 +99,24 @@ Meteor.methods
     if avatar is 'remove' then modifier.$set.avatar = ''
     else if avatar isnt '' then modifier.$set.avatar = Avatars.insert img: avatar
     # 先发送广播
-    mask = Masks.findOne id
+    grist = Grists.findOne id
     ghouses = []
-    Messages.find('speaker.name': mask.name).forEach (m) ->
+    Messages.find('speaker.name': grist.name).forEach (m) ->
       if ghouses.indexOf(m.ghouse) is -1 then ghouses.push m.ghouse
     console.log '广播已发送：', ghouses
-    if mask.name isnt name
-      Meteor.call 'broadcast', ghouses, "[#{mask.name}] 把名字改为了 [#{name}]"
-    if mask.colour.r isnt colour.r or mask.colour.g isnt colour.g or mask.colour.b isnt colour.b
-      Meteor.call 'broadcast', ghouses, "[#{mask.name}] 更换了主题色"
+    if grist.name isnt name
+      Meteor.call 'broadcast', ghouses, "[#{grist.name}] 把名字改为了 [#{name}]"
+    if grist.colour.r isnt colour.r or grist.colour.g isnt colour.g or grist.colour.b isnt colour.b
+      Meteor.call 'broadcast', ghouses, "[#{grist.name}] 更换了主题色"
     if modifier.$set.avatar?
-      Meteor.call 'broadcast', ghouses, "[#{mask.name}] 更换了头像"
-    Masks.update id, modifier
-  'use_mask': (id) ->
+      Meteor.call 'broadcast', ghouses, "[#{grist.name}] 更换了头像"
+    Grists.update id, modifier
+  'use_grist': (id) ->
     if not @userId?
       throw new Meteor.Error 403, '如果我没看错的话，你没登录'
-    if Meteor.user().profile.masks.indexOf(id) is -1
+    if Meteor.user().profile.grists.indexOf(id) is -1
       throw new Meteor.Error 403, '喂喂，不要乱动别人的东西哈'
-    Meteor.users.update @userId, $set: 'profile.last_mask': id
+    Meteor.users.update @userId, $set: 'profile.last_grist': id
   'create_ghouse': (options) ->
     if not @userId?
       throw new Meteor.Error 403, '貌似你还没登录……'
@@ -128,10 +128,10 @@ Meteor.methods
       _id: options.id
       title: options.title
       description: options.description
-      creator: Meteor.user().profile.last_mask
+      creator: Meteor.user().profile.last_grist
       timestamp: (new Date).getTime()
   'modify_ghouse': (id, name, description) ->
-    if not @userId? or Masks.findOne(Meteor.user().profile.last_mask)._id isnt Greenhouses.findOne(id).creator
+    if not @userId? or Grists.findOne(Meteor.user().profile.last_grist)._id isnt Greenhouses.findOne(id).creator
       throw new Meteor.Error 403, '看错了吧？这是别人的玩意～～'
     Greenhouses.update id, $set: { name: name, description: description }
   'speak': (ghouse, message) ->
@@ -143,12 +143,12 @@ Meteor.methods
     id = (Messages.find().count() + 1).toString()
     # 获取一个话唠点数
     Meteor.call 'get_chattypt', 1
-    mask = Masks.findOne Meteor.user().profile.last_mask,
+    grist = Grists.findOne Meteor.user().profile.last_grist,
       fields: { _id: 1, name: 1, avatar: 1, colour: 1 }
     Messages.insert
       _id: id
       ghouse: ghouse
-      speaker: mask
+      speaker: grist
       message: message
       timestamp: (new Date).getTime()
   # TODO: 把这个保留在服务器内部，不能错客户端调用
@@ -162,26 +162,26 @@ Meteor.methods
       timestamp: timestamp) for ghouse in ghouses
   'get_chattypt': (num) ->
     Meteor.users.update @userId, $inc: 'profile.chattypt': num
-    Meteor.call 'update_random_masks'
-  'update_random_masks': ->
+    Meteor.call 'update_random_grists'
+  'update_random_grists': ->
     user = Meteor.user()
     level = GM_level user.profile.chattypt
-    random_ct = Masks.find({ _id: { $in: user.profile.masks }, is_random: true }).count()
+    random_ct = Grists.find({ _id: { $in: user.profile.grists }, is_random: true }).count()
     console.log random_ct
     while random_ct < level
       random_ct++
       id = Random.id()
       name = Meteor.call 'random_name'
       colour = GM.hexToRgb Please.make_color()
-      Masks.insert
+      Grists.insert
         _id: id
         name: name
         avatar: ''
         colour: colour
         is_random: true
         timestamp: (new Date).getTime()
-      console.log "创建随机马甲 #{id} #{name} #{colour.r},#{colour.g},#{colour.b}"
-      Meteor.users.update @userId, $addToSet: 'profile.masks': id
+      console.log "创建随机Grist #{id} #{name} #{colour.r},#{colour.g},#{colour.b}"
+      Meteor.users.update @userId, $addToSet: 'profile.grists': id
     return
   'random_name': -> '啊' + Random.id() + '随便'
 
@@ -192,5 +192,5 @@ Meteor.startup ->
     res.setHeader 'Access-Control-Allow-Origin', '*'
     next()
   # 设置要发送的e-mail模板
-  Accounts.emailTemplates.from = '"Mangostana Team" <1786762946@qq.com>'
-  Accounts.emailTemplates.siteName = 'Mangostana'
+  Accounts.emailTemplates.from = '"GiggleGrist Team" <1786762946@qq.com>'
+  Accounts.emailTemplates.siteName = 'GiggleGrist'

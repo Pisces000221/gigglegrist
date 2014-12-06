@@ -20,7 +20,7 @@ Template.ghouse.helpers
     #@speaker.is_random
     #if @speaker.name is '啊k27XRNbiPgA7yzTJy随便'
     #  console.log @speaker
-    GM.masks.findOne(@speaker._id).is_random
+    GM.grists.findOne(@speaker._id).is_random
   'speaker_name': -> @speaker.name
   'speaker_avatar': -> window.avatar @speaker
-  'created_by_me': -> Meteor.user().profile.masks.indexOf(@creator) isnt -1
+  'created_by_me': -> Meteor.user().profile.grists.indexOf(@creator) isnt -1

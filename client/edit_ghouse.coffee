@@ -1,5 +1,5 @@
 Template.edit_ghouse.helpers
-  'created_by_me': -> Meteor.user().profile.masks.indexOf(@creator) isnt -1
+  'created_by_me': -> Meteor.user().profile.grists.indexOf(@creator) isnt -1
 
 Template.edit_ghouse.events
   'click #btn_submit': ->

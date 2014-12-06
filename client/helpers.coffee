@@ -1,7 +1,7 @@
 Template.header.events
   'click #a_logout': -> Meteor.logout()
 
-Meteor.subscribe 'masks'
+Meteor.subscribe 'grists'
 Meteor.subscribe 'avatars'
 
 Session.setDefault 'logged_in', false
@@ -10,16 +10,16 @@ Tracker.autorun -> Session.set 'logged_in', Meteor.userId()?
 Template.registerHelper 'go_homepage', -> Router.go '/'
 
 Template.registerHelper 'current_username', -> Meteor.user().emails[0].address
-Template.registerHelper 'current_maskname', -> GM.masks.findOne(Meteor.user().profile.last_mask).name
+Template.registerHelper 'current_gristname', -> GM.grists.findOne(Meteor.user().profile.last_grist).name
 Template.registerHelper 'logged_in', -> Session.get 'logged_in'
 
 Template.registerHelper 'my_level', -> GM.level Meteor.user().profile.chattypt
 
-Template.registerHelper 'my_masks', -> GM.masks.find _id: $in: Meteor.user().profile.masks
+Template.registerHelper 'my_grists', -> GM.grists.find _id: $in: Meteor.user().profile.grists
 Template.registerHelper 'avatar', (x) -> window.avatar x
 Template.registerHelper 'cur_avatar', -> window.avatar this
 Template.registerHelper 'has_avatar', -> @avatar isnt ''
-Template.registerHelper 'has_avatar_edit', -> @avatar isnt '' and not Session.get 'removed_avatar'  # 在马甲编辑页面中使用
+Template.registerHelper 'has_avatar_edit', -> @avatar isnt '' and not Session.get 'removed_avatar'  # 在Grist编辑页面中使用
 Template.registerHelper 'hash_colour', -> '#' + window.hex_colour @colour
 Template.registerHelper 'rgba_colour', (alpha) -> "rgba(#{@colour.r}, #{@colour.g}, #{@colour.b}, #{alpha})"
 
@@ -53,7 +53,7 @@ window.hex_colour = (c) -> window.hex2(c.r) + window.hex2(c.g) + window.hex2(c.b
 
 window.rgba_colour = (c, alpha) -> "rgba(#{c.r}, #{c.g}, #{c.b}, #{alpha})"
 
-window.avatar = (mask) -> if mask.avatar is '' then 'http://www.gravatar.com/avatar/' + md5(mask._id) + '?d=identicon' else window.avatar_img mask.avatar
+window.avatar = (grist) -> if grist.avatar is '' then 'http://www.gravatar.com/avatar/' + md5(grist._id) + '?d=identicon' else window.avatar_img grist.avatar
 
 window.avatar_img = (avatar_id) -> GM.avatars.findOne(avatar_id).img
 

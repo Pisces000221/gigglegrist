@@ -4,12 +4,12 @@
 `
 GM = {};
 Greenhouses = new Meteor.Collection('ghouses');
-Masks = new Meteor.Collection('masks');
+Grists = new Meteor.Collection('grists');
 Messages = new Meteor.Collection('messages');
 Avatars = new Meteor.Collection('avatars');
 `
 GM.ghouses = Greenhouses
-GM.masks = Masks
+GM.grists = Grists
 GM.messages = Messages
 GM.avatars = Avatars
 
@@ -19,11 +19,11 @@ GM.register = (email) ->
 GM.enroll = (args...) ->
   Meteor.call 'enroll', args...
 
-GM.create_mask = (args...) ->
-  Meteor.call 'create_mask', args...
+GM.create_grist = (args...) ->
+  Meteor.call 'create_grist', args...
 
-GM.modify_mask = (args...) ->
-  Meteor.call 'modify_mask', args...
+GM.modify_grist = (args...) ->
+  Meteor.call 'modify_grist', args...
 
 GM.create_ghouse = (args...) ->
   Meteor.call 'create_ghouse', args...
@@ -34,8 +34,8 @@ GM.modify_ghouse = (args...) ->
 GM.speak = (args...) ->
   Meteor.call 'speak', args...
 
-GM.use_mask = (args...) ->
-  Meteor.call 'use_mask', args...
+GM.use_grist = (args...) ->
+  Meteor.call 'use_grist', args...
 
 GM.level_up_pt = (lv) -> 10 + lv * 5
 

@@ -10,12 +10,12 @@ Router.map ->
     data: -> user_id: @params.user_id.trim(), token: @params.token.trim()
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
-  @route 'man_masks',
+  @route 'man_grists',
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
-  @route 'edit_mask',
-    path: '/edit_mask/:id'
-    data: -> GM.masks.findOne @params.id
+  @route 'edit_grist',
+    path: '/edit_grist/:id'
+    data: -> GM.grists.findOne @params.id
     layoutTemplate: 'layout'
     yieldTemplates: 'header': to: 'top'
   @route 'ghouse',
