@@ -15,7 +15,7 @@ Template.registerHelper 'logged_in', -> Session.get 'logged_in'
 
 Template.registerHelper 'my_level', -> GM.level Meteor.user().profile.chattypt
 
-Template.registerHelper 'my_grists', -> GM.grists.find _id: $in: Meteor.user().profile.grists
+Template.registerHelper 'my_grists', -> GM.grists.find { _id: $in: Meteor.user().profile.grists }, { sort: is_random: 1 }
 Template.registerHelper 'avatar', (x) -> window.avatar x
 Template.registerHelper 'cur_avatar', -> window.avatar this
 Template.registerHelper 'has_avatar', -> @avatar isnt ''
